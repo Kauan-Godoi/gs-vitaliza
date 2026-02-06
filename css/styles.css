@@ -10838,6 +10838,7 @@ body {
 .page-section {
   padding: 8rem 0;
   line-height: 1.6;
+  background-color: #DBEFF2;
 }
 
 .text-white-75 {
@@ -10993,4 +10994,8 @@ header.masthead h1, header.masthead .h1 {
 }
 #portfolio .container-fluid .portfolio-box:hover .portfolio-box-caption, #portfolio .container-sm .portfolio-box:hover .portfolio-box-caption, #portfolio .container-md .portfolio-box:hover .portfolio-box-caption, #portfolio .container-lg .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xl .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xxl .portfolio-box:hover .portfolio-box-caption {
   opacity: 1;
+}
+
+#portfolio{
+  background-color: #DBEFF2;
 }
