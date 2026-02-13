@@ -4766,10 +4766,12 @@ fieldset:disabled .btn {
   z-index: 1050;
   transition: all 0.3s ease-in-out;
 }
+
 .navbar-nav {
   align-items: center;
   height: 80px;
 }
+
 .navbar-shrink .navbar-brand img {
   height: 100px !important;
   top: 5px;
@@ -4781,6 +4783,7 @@ fieldset:disabled .btn {
     height: 70px !important;
     position: relative !important;
   }
+
   .navbar-nav {
     height: auto !important;
     padding: 1rem 0;
@@ -4789,12 +4792,14 @@ fieldset:disabled .btn {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
+
   .navbar-collapse {
     background-color: white;
     z-index: 1000;
     position: relative;
   }
-  .nav-link{
+
+  .nav-link {
     text-align: center;
   }
 }
@@ -12774,7 +12779,7 @@ hr.divider-light {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 4.5rem);
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpg");
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpeg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -12812,6 +12817,7 @@ header.masthead .h1 {
   }
 }
 
+/* Codigo guardado para atualizações futuras
 #portfolio .container-fluid,
 #portfolio .container-sm,
 #portfolio .container-md,
@@ -12885,4 +12891,37 @@ header.masthead .h1 {
 
 #portfolio {
   background-color: #DBEFF2;
+}
+*/
+
+/* Container do Carrossel */
+.custom-carousel {
+  max-width: 450px;
+  background-color: #DBEFF2;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* Ajuste das Imagens */
+.custom-carousel .carousel-item img {
+  height: 650px !important;
+  object-fit: contain !important;
+  width: 100%;
+}
+
+/* Ajuste para mobile */
+@media (max-width: 576px) {
+  .custom-carousel {
+    max-width: 90% !important;
+  }
+
+  .custom-carousel .carousel-item img {
+    height: 500px !important;
+  }
+}
+
+/* setas carrosel */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
 }
