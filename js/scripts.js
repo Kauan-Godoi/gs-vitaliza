@@ -7,15 +7,15 @@
 // Scripts
 // 
 
-globalThis.addEventListener('DOMContentLoaded', event => {
+window.addEventListener('DOMContentLoaded', event => {
 
     // Navbar shrink function
-    let navbarShrink = function () {
+    var navbarShrink = function () {
         const navbarCollapsible = document.body.querySelector('#mainNav');
         if (!navbarCollapsible) {
             return;
         }
-        if (globalThis.scrollY === 0) {
+        if (window.scrollY === 0) {
             navbarCollapsible.classList.remove('navbar-shrink')
         } else {
             navbarCollapsible.classList.add('navbar-shrink')
@@ -32,11 +32,11 @@ globalThis.addEventListener('DOMContentLoaded', event => {
     // Activate Bootstrap scrollspy on the main nav element
     const mainNav = document.body.querySelector('#mainNav');
     if (mainNav) {
-        const scrollSpy = new bootstrap.ScrollSpy(document.body, {
+        new bootstrap.ScrollSpy(document.body, {
             target: '#mainNav',
             rootMargin: '0px 0px -40%',
         });
-    }
+    };
 
     // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
@@ -45,10 +45,15 @@ globalThis.addEventListener('DOMContentLoaded', event => {
     );
     responsiveNavItems.map(function (responsiveNavItem) {
         responsiveNavItem.addEventListener('click', () => {
-            if (globalThis.getComputedStyle(navbarToggler).display !== 'none') {
+            if (window.getComputedStyle(navbarToggler).display !== 'none') {
                 navbarToggler.click();
             }
         });
+    });
+
+    // Activate SimpleLightbox plugin for portfolio items
+    new SimpleLightbox({
+        elements: '#portfolio a.portfolio-box'
     });
 
 });
