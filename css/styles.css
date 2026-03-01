@@ -103,6 +103,8 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  width: 100%;
+  height: 100%;
 }
 
 hr {
@@ -12632,11 +12634,6 @@ html {
   scroll-padding-top: calc(4.5rem - 1px);
 }
 
-body {
-  width: 100%;
-  height: 100%;
-}
-
 .page-section {
   padding: 8rem 0;
   line-height: 1.6;
@@ -12802,6 +12799,46 @@ header.masthead .h1 {
   width: 100%;
 }
 
+.social-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.float-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.float-btn i {
+  color: white;
+  font-size: 30px;
+  display: flex;
+}
+
+.float-btn:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp {
+  background-color: #25d366;
+}
+
+.instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+}
+
 /* Ajuste para mobile */
 @media (max-width: 576px) {
   .custom-carousel {
@@ -12811,10 +12848,4 @@ header.masthead .h1 {
   .custom-carousel .carousel-item img {
     height: 500px !important;
   }
-}
-
-/* setas carrosel */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  filter: invert(1);
 }
