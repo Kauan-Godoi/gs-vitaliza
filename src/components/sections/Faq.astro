@@ -1,0 +1,111 @@
+---
+import Icon from '../Icon.astro';
+import { faq, whatsappLink } from '../../data/site';
+---
+
+<section class="section section--soft" id="duvidas">
+  <div class="container faq">
+    <div class="section-head section-head--left reveal">
+      <span class="eyebrow">Perguntas frequentes</span>
+      <h2 class="section-title">Tire suas dúvidas</h2>
+      <p class="section-lead">Não encontrou o que procurava? Chame a gente no WhatsApp.</p>
+      <a class="btn btn--whatsapp faq__cta" href={whatsappLink('Olá! Tenho uma dúvida sobre a higienização.')} target="_blank" rel="noopener">
+        <Icon name="whatsapp" /> Perguntar no WhatsApp
+      </a>
+    </div>
+
+    <div class="faq__list reveal">
+      {faq.map((item, i) => (
+        <details open={i === 0}>
+          <summary>
+            {item.q}
+            <span class="faq__icon"><Icon name="plus" size={20} /></span>
+          </summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: clamp(32px, 6vw, 72px);
+    align-items: start;
+  }
+
+  .faq .section-head {
+    position: sticky;
+    top: 110px;
+  }
+
+  .faq__cta {
+    margin-top: 24px;
+  }
+
+  .faq__list {
+    display: grid;
+    gap: 12px;
+  }
+
+  details {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s ease;
+  }
+
+  details[open] {
+    border-color: var(--blue-500);
+  }
+
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 22px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--blue-50);
+    color: var(--blue-600);
+    transition: transform 0.2s ease;
+  }
+
+  details[open] .faq__icon {
+    transform: rotate(45deg);
+  }
+
+  details p {
+    margin: 0;
+    padding: 0 22px 22px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 900px) {
+    .faq {
+      grid-template-columns: 1fr;
+    }
+
+    .faq .section-head {
+      position: static;
+    }
+  }
+</style>

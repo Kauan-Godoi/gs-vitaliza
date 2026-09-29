@@ -1,0 +1,128 @@
+---
+import Icon from '../Icon.astro';
+import { site, whatsappLink } from '../../data/site';
+---
+
+<section class="section" id="contato">
+  <div class="container">
+    <div class="contact reveal">
+      <div class="contact__main">
+        <span class="eyebrow">Orçamento grátis</span>
+        <h2 class="section-title">Pronto para renovar seus estofados?</h2>
+        <p>
+          Mande uma foto pelo WhatsApp e receba seu orçamento sem compromisso. Atendemos {site.city} e toda a Grande São Paulo.
+        </p>
+        <div class="contact__actions">
+          <a class="btn btn--whatsapp" href={whatsappLink()} target="_blank" rel="noopener">
+            <Icon name="whatsapp" /> Chamar no WhatsApp
+          </a>
+          <a class="btn btn--ghost" href={`tel:${site.phoneE164}`}>
+            <Icon name="phone" /> {site.phoneDisplay}
+          </a>
+        </div>
+      </div>
+
+      <form class="contact__form" action={site.formspree} method="POST">
+        <h3>Prefere e-mail?</h3>
+        <input type="hidden" name="_language" value="pt-BR" />
+        <input type="hidden" name="_subject" value="Novo contato pelo site GS Vitaliza" />
+        <label>
+          <span>Nome</span>
+          <input name="nome" type="text" autocomplete="name" required />
+        </label>
+        <label>
+          <span>Telefone / WhatsApp</span>
+          <input name="telefone" type="tel" autocomplete="tel" inputmode="tel" required />
+        </label>
+        <label>
+          <span>E-mail</span>
+          <input name="email" type="email" autocomplete="email" required />
+        </label>
+        <label>
+          <span>O que você precisa higienizar?</span>
+          <textarea name="mensagem" rows="3" required></textarea>
+        </label>
+        <button class="btn btn--primary" type="submit">Enviar mensagem</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+    padding: clamp(32px, 5vw, 64px);
+    border-radius: 28px;
+    background:
+      radial-gradient(ellipse 50% 80% at 100% 0%, rgb(47 124 240 / 0.45), transparent 70%),
+      linear-gradient(150deg, var(--blue-800), var(--blue-900));
+    color: #fff;
+  }
+
+  .contact .eyebrow {
+    color: #8cb8ff;
+  }
+
+  .contact__main p {
+    color: rgb(255 255 255 / 0.8);
+    font-size: 1.1rem;
+    max-width: 520px;
+  }
+
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .contact__form {
+    display: grid;
+    gap: 14px;
+    padding: 28px;
+    background: #fff;
+    border-radius: var(--radius);
+    color: var(--ink);
+  }
+
+  .contact__form h3 {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+
+  .contact__form label {
+    display: grid;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .contact__form input,
+  .contact__form textarea {
+    font: inherit;
+    font-weight: 400;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg-soft);
+    color: var(--ink);
+    resize: vertical;
+  }
+
+  .contact__form input:focus,
+  .contact__form textarea:focus {
+    outline: none;
+    border-color: var(--blue-500);
+    background: #fff;
+    box-shadow: 0 0 0 3px var(--blue-100);
+  }
+
+  @media (max-width: 900px) {
+    .contact {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

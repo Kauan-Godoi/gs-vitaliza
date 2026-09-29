@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { whatsappLink } from '../data/site';
+---
+
+<BaseLayout title="Página não encontrada">
+  <section class="section not-found">
+    <div class="container">
+      <p class="not-found__code">404</p>
+      <h1 class="section-title">Página não encontrada</h1>
+      <p class="section-lead">O endereço pode ter mudado. Volte para o início ou fale com a gente.</p>
+      <div class="not-found__actions">
+        <a class="btn btn--primary" href="/">Ir para o início</a>
+        <a class="btn btn--whatsapp" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    text-align: center;
+  }
+
+  .not-found__code {
+    font-size: clamp(4rem, 14vw, 8rem);
+    font-weight: 800;
+    color: var(--blue-100);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .not-found__actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+</style>

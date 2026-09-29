@@ -1,45 +1,63 @@
-# GS Vitaliza - Higienização e Conservação de Estofados
+# GS Vitaliza — Higienização de Estofados
 
-Este é o site oficial da **GS Vitaliza**, um **projeto real** desenvolvido para atender às necessidades de presença digital e captação de clientes de uma empresa especializada em higenização de estofados.
+Site oficial da **GS Vitaliza Estofados** (Taboão da Serra/SP): [gsvitaliza.com.br](https://gsvitaliza.com.br/)
 
-| 🔗 Link do site | [https://gsvitaliza.com.br/](https://gsvitaliza.com.br/) |
-| :--- | :--- |
+Feito com [Astro](https://astro.build): site estático, rápido, com imagens otimizadas automaticamente (WebP responsivo), blog em Markdown e SEO local (dados estruturados de negócio local, FAQ e artigos).
+
+## Rodando localmente
+
+```bash
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # gera o site em dist/
+npm run preview  # serve o dist/ localmente
+```
+
+## Onde editar o conteúdo
+
+| O quê | Arquivo |
+| --- | --- |
+| Telefone, WhatsApp, Instagram, horário, nota do Google | `src/data/site.ts` |
+| Serviços, "Por que escolher", passos, perguntas frequentes | `src/data/site.ts` |
+| Fotos da galeria de resultados | `src/assets/portfolio/` + lista em `src/components/sections/Results.astro` |
+| Foto da seção "Sobre" | salvar como `src/assets/brand/sobre.jpg` |
+| Avaliações do Google | `src/data/reviews.json` (automático, ver abaixo) |
+| Artigos do blog | `src/content/blog/*.md` |
+
+### Novo artigo no blog
+
+Crie um arquivo `.md` em `src/content/blog/`. O nome do arquivo vira a URL (`/blog/nome-do-arquivo/`).
+
+```md
+---
+title: 'Título do artigo'
+description: 'Resumo de 1–2 frases (aparece no Google e nos cards).'
+date: 2026-10-15
+cover: '../../assets/portfolio/01.jpg'
+coverAlt: 'Descrição da imagem de capa'
+draft: false   # true = só aparece no npm run dev
+---
+
+Texto do artigo em Markdown...
+```
+
+## Avaliações do Google
+
+O carrossel lê `src/data/reviews.json`. O script `scripts/fetch-reviews.mjs` preenche esse arquivo com **todas** as avaliações via API do Perfil da Empresa no Google. O workflow roda o script a cada deploy e uma vez por dia.
+
+Para ativar, cadastre estes secrets no repositório (Settings → Secrets and variables → Actions):
+
+- `GBP_CLIENT_ID`, `GBP_CLIENT_SECRET`, `GBP_REFRESH_TOKEN` — OAuth da conta Google proprietária do perfil
+- `GBP_ACCOUNT_ID`, `GBP_LOCATION_ID` — IDs da conta e do local no Perfil da Empresa
+
+Sem os secrets o script é ignorado e o site mostra um botão para as avaliações no Google.
+
+## Deploy
+
+GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`) a cada push na `main`.
+Em **Settings → Pages → Build and deployment → Source**, selecione **GitHub Actions**.
+O domínio personalizado fica em `public/CNAME`.
 
 ---
 
-## 🚀 Sobre o Projeto
-
-Este site foi planejado e executado para o proprietário da GS Vitaliza. O desafio central foi transformar uma solução técnica em uma ferramenta de vendas eficiente, focada em:
-
-* **Autoridade de Marca:** Criação de uma interface que transmite confiança e profissionalismo no setor de higienização.
-* **Portfólio Estratégico:** Desenvolvimento de uma galeria otimizada para fotos verticais (padrão de smartphones), permitindo que o cliente exiba resultados reais de serviços em sofás, colchões, interiores automotivos, etc... Sem distorções.
-* **Conversão de Leads:** Implementação de múltiplos canais de contato (WhatsApp e Formulário) para transformar visitantes em orçamentos fechados.
-
----
-
-## 🛠️ Tecnologias e Customização
-
-* **Template Base:** O projeto utilizou como ponto de partida o template **Creative** do Start Bootstrap, passando por um processo profundo de customização de layout, cores e componentes para se adequar à identidade da GS Vitaliza.
-* **HTML5 & CSS3:** Ajustes avançados de especificidade CSS para garantir a responsividade em menus mobile e a proporção correta do carrossel de imagens.
-* **Bootstrap 5:** Uso de frameworks modernos para garantir que o site seja rápido e totalmente responsivo.
-* **Formspree:** Integração de formulário de contato para recebimento de leads diretamente no e-mail do cliente, garantindo organização no atendimento.
-* **Hospedagem & Domínio:** Configuração de deploy via **GitHub Pages** e integração com domínio personalizado `.com.br` com certificado SSL ativo.
-
----
-
-## 📱 Destaque Técnico: Otimização Mobile
-
-Como a maior parte do público-alvo acessa o serviço via smartphone, o site foi refinado para:
-1.  Ter um menu de navegação limpo e de fácil leitura.
-2.  Exibir imagens verticais de alta qualidade que ocupam bem a tela do celular.
-3.  Facilitar o clique no botão de ação para o WhatsApp.
-
----
-
-## 📧 Contato do Desenvolvedor
-
-* **Desenvolvedor:** Kauan Godoi Soares
-* **Projeto:** GS Vitaliza - Higienização e Conservação de Estofados
-
----
-*Este projeto demonstra a capacidade de entregar soluções completas, desde o código até a colocação de um negócio real no ar.* ✨
+Desenvolvido por **Kauan Godoi Soares**.

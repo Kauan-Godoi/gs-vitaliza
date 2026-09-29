@@ -1,0 +1,56 @@
+---
+import PostCard from '../PostCard.astro';
+import { getPosts } from '../../utils/posts';
+
+const posts = (await getPosts()).slice(0, 3);
+---
+
+{posts.length > 0 && (
+  <section class="section section--soft" id="blog">
+    <div class="container">
+      <div class="blog-teaser__head reveal">
+        <div class="section-head section-head--left">
+          <span class="eyebrow">Blog</span>
+          <h2 class="section-title">Dicas para cuidar dos seus estofados</h2>
+        </div>
+        <a class="btn btn--outline" href="/blog/">Ver todos os artigos</a>
+      </div>
+      <div class="blog-teaser__grid">
+        {posts.map((post) => <div class="reveal"><PostCard post={post} /></div>)}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .blog-teaser__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .blog-teaser__head .section-head {
+    margin-bottom: 0;
+  }
+
+  .blog-teaser__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 1024px) {
+    .blog-teaser__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .blog-teaser__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

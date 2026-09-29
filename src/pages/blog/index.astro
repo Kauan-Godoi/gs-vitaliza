@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPosts } from '../../utils/posts';
+
+const posts = await getPosts();
+---
+
+<BaseLayout
+  title="Blog"
+  description="Dicas de limpeza e conservação de sofás, colchões, tapetes e bancos de carro, pela equipe da GS Vitaliza."
+>
+  <section class="blog-hero">
+    <div class="container">
+      <span class="eyebrow">Blog GS Vitaliza</span>
+      <h1 class="section-title">Dicas para cuidar dos seus estofados</h1>
+      <p class="section-lead">Limpeza, conservação e saúde em casa — explicado de forma simples.</p>
+    </div>
+  </section>
+
+  <section class="section blog-list">
+    <div class="container">
+      {posts.length > 0 ? (
+        <div class="blog-grid">
+          {posts.map((post) => <PostCard post={post} />)}
+        </div>
+      ) : (
+        <p class="section-lead">Em breve, novos artigos por aqui.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-hero {
+    padding-block: clamp(48px, 7vw, 88px) 0;
+    background: linear-gradient(180deg, var(--blue-50), #fff);
+    text-align: center;
+  }
+
+  .blog-hero .section-title {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+  }
+
+  .blog-list {
+    padding-top: 48px;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 1024px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

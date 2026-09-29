@@ -1,0 +1,212 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import logo from '../assets/brand/logo.png';
+import { whatsappLink } from '../data/site';
+
+interface Props {
+  /** Flutua sobre o hero escuro da página inicial em vez de ocupar espaço próprio. */
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
+
+const links = [
+  { href: '/#servicos', label: 'Serviços' },
+  { href: '/#como-funciona', label: 'Como funciona' },
+  { href: '/#resultados', label: 'Resultados' },
+  { href: '/#avaliacoes', label: 'Avaliações' },
+  { href: '/#sobre', label: 'Sobre' },
+  { href: '/#duvidas', label: 'Dúvidas' },
+  { href: '/blog/', label: 'Blog' },
+];
+---
+
+<header class:list={['header', { 'header--overlay': overlay }]} data-header>
+  <div class="container">
+    <div class="header__bar">
+      <a href="/" class="header__logo" aria-label="GS Vitaliza — página inicial">
+        <Image src={logo} alt="GS Vitaliza — Higienização de Estofados" height={44} densities={[1, 2]} loading="eager" />
+      </a>
+
+      <nav class="header__nav" id="menu" aria-label="Principal">
+        <ul>
+          {links.map((l) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+        <a class="btn btn--primary header__cta" href={whatsappLink()} target="_blank" rel="noopener">
+          <Icon name="whatsapp" /> Solicitar orçamento
+        </a>
+      </nav>
+
+      <button class="header__toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+        <span class="visually-hidden">Abrir menu</span>
+        <Icon name="menu" class="icon-open" />
+        <Icon name="close" class="icon-close" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]')!;
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
+
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const setOpen = (open: boolean) => {
+    header.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  };
+  toggle.addEventListener('click', () => setOpen(!header.classList.contains('is-open')));
+  header.querySelectorAll('.header__nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding-top: 12px;
+  }
+
+  /* Na home o cabeçalho não ocupa espaço: o hero escuro começa atrás dele. */
+  .header--overlay {
+    margin-bottom: calc(-1 * var(--header-h));
+  }
+
+  .header__bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 64px;
+    padding: 0 10px 0 20px;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.94);
+    border: 1px solid var(--line);
+    backdrop-filter: saturate(1.4) blur(14px);
+    box-shadow: 0 10px 30px -16px rgb(5 12 28 / 0.45);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .header.is-scrolled .header__bar {
+    box-shadow: 0 14px 34px -14px rgb(5 12 28 / 0.5);
+  }
+
+  .header__logo :global(img) {
+    height: 44px;
+    width: auto;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .header__nav ul {
+    display: flex;
+    gap: 2px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__nav ul a {
+    display: block;
+    padding: 8px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    border-radius: 999px;
+  }
+
+  .header__nav ul a:hover {
+    color: var(--blue-600);
+    background: var(--blue-50);
+  }
+
+  .header__cta {
+    padding: 11px 18px;
+    font-size: 0.92rem;
+  }
+
+  .header__toggle {
+    display: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--blue-50);
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .header__toggle :global(.icon-close) {
+    display: none;
+  }
+
+  @media (max-width: 1100px) {
+    .header__toggle {
+      display: grid;
+    }
+
+    .header__nav {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      padding: 16px;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 20px 40px -16px rgb(5 12 28 / 0.4);
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    }
+
+    .header.is-open .header__nav {
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+    }
+
+    .header.is-open :global(.icon-open) {
+      display: none;
+    }
+
+    .header.is-open :global(.icon-close) {
+      display: block;
+    }
+
+    .header__nav ul {
+      flex-direction: column;
+    }
+
+    .header__nav ul a {
+      padding: 12px 14px;
+      font-size: 1.05rem;
+      border-radius: 12px;
+    }
+
+    .header__cta {
+      padding: 15px;
+      font-size: 1rem;
+    }
+  }
+</style>

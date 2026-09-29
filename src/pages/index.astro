@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Services from '../components/sections/Services.astro';
+import WhyUs from '../components/sections/WhyUs.astro';
+import Process from '../components/sections/Process.astro';
+import Results from '../components/sections/Results.astro';
+import Reviews from '../components/sections/Reviews.astro';
+import About from '../components/sections/About.astro';
+import Faq from '../components/sections/Faq.astro';
+import BlogTeaser from '../components/sections/BlogTeaser.astro';
+import Contact from '../components/sections/Contact.astro';
+import { faq } from '../data/site';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout jsonLd={faqSchema} overlayHeader>
+  <Hero />
+  <Services />
+  <WhyUs />
+  <Process />
+  <Results />
+  <Reviews />
+  <About />
+  <Faq />
+  <BlogTeaser />
+  <Contact />
+</BaseLayout>
