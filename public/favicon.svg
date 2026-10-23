@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#123a8f"/>
+    <stop offset="1" stop-color="#071634"/>
+  </linearGradient>
+  <radialGradient id="glow" cx="0.45" cy="0.5" r="0.55">
+    <stop offset="0" stop-color="#2f7cff" stop-opacity="0.45"/>
+    <stop offset="1" stop-color="#2f7cff" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="body" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#1d56d8"/>
+    <stop offset="0.45" stop-color="#3a8bff"/>
+    <stop offset="1" stop-color="#1645b8"/>
+  </linearGradient>
+  <linearGradient id="band" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#6cb8ff"/>
+    <stop offset="1" stop-color="#2f7cf0"/>
+  </linearGradient>
+  <linearGradient id="lid" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3f8fff"/>
+    <stop offset="1" stop-color="#1c58d6"/>
+  </linearGradient>
+  <linearGradient id="nozzle" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#dff0ff"/>
+    <stop offset="1" stop-color="#8cc8ff"/>
+  </linearGradient>
+  <linearGradient id="swoosh" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#1e6bff"/>
+    <stop offset="1" stop-color="#5fb4ff"/>
+  </linearGradient>
+  <linearGradient id="bgblue" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#2f7cff"/>
+    <stop offset="1" stop-color="#123fae"/>
+  </linearGradient>
+</defs><rect width="512" height="512" rx="96" fill="url(#bg)"/><rect width="512" height="512" rx="96" fill="url(#glow)"/><path transform="translate(30.0 152.0) scale(3.1400)" d="M34.28 75.09C53.95 75.09 68.89 63.38 71.97 44.42L73.78 33.30L40.77 33.30L38.38 47.80L51.52 47.80C50.05 53.36 44.39 57.52 35.94 57.52C27.64 57.52 23.53 53.12 23.53 44.58C23.53 32.38 29.59 17.58 44.23 17.58C50.73 17.58 53.61 20.84 53.72 26.27L74.42 26.27C75.78 9.86 61.72 0.00 44.34 0.00C19.58 0.00 3.22 20.20 3.22 44.77C3.22 63.52 14.89 75.09 34.28 75.09ZM104.98 75.09C124.22 75.09 136.33 67.03 138.73 52.44C140.73 40.19 134.44 33.20 118.17 30.12L112.45 29.05C105.14 27.69 102.69 25.73 103.28 22.27C103.86 18.59 108.31 16.02 114.02 16.02C120.27 16.02 123.59 18.94 123.25 24.22L141.91 24.22C143.95 8.98 133.55 0.00 115.30 0.00C98.11 0.00 85.11 8.78 82.92 21.97C81.02 33.39 87.84 41.45 101.42 44.09L108.45 45.45C116.36 46.97 119.25 49.17 118.66 52.69C118.03 56.48 113.28 59.08 106.89 59.08C99.52 59.08 95.47 55.61 96.16 49.70L76.95 49.70C74.33 65.67 84.33 75.09 104.98 75.09Z" fill="#ffffff"/><polygon points="430.0,48.0 442.3,79.7 474.0,92.0 442.3,104.3 430.0,136.0 417.7,104.3 386.0,92.0 417.7,79.7" fill="#5fb4ff"/></svg>
