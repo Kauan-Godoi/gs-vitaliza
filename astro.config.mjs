@@ -4,5 +4,5 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://gsvitaliza.com.br',
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.includes('/obrigado') })],
 });

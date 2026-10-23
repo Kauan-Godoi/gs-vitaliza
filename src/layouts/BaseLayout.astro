@@ -1,10 +1,18 @@
 ---
+// Fonte hospedada no próprio site (sem Google Fonts); só o subconjunto latino, que cobre o português.
+import '@fontsource/plus-jakarta-sans/latin-400.css';
+import '@fontsource/plus-jakarta-sans/latin-500.css';
+import '@fontsource/plus-jakarta-sans/latin-600.css';
+import '@fontsource/plus-jakarta-sans/latin-700.css';
+import '@fontsource/plus-jakarta-sans/latin-800.css';
 import '../styles/global.css';
 import { getImage } from 'astro:assets';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import WhatsAppFloat from '../components/WhatsAppFloat.astro';
-import { site } from '../data/site';
+import FloatButtons from '../components/FloatButtons.astro';
+import Analytics from '../components/Analytics.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import { site, trackingIds } from '../data/site';
 import heroImage from '../assets/brand/hero.jpeg';
 
 interface Props {
@@ -15,9 +23,19 @@ interface Props {
   jsonLd?: Record<string, unknown>;
   /** Cabeçalho flutuando sobre um hero escuro (página inicial). */
   overlayHeader?: boolean;
+  /** Tira a página dos resultados de busca (ex.: /obrigado). */
+  noindex?: boolean;
 }
 
-const { title, description = site.description, image = heroImage, type = 'website', jsonLd, overlayHeader = false } = Astro.props;
+const {
+  title,
+  description = site.description,
+  image = heroImage,
+  type = 'website',
+  jsonLd,
+  overlayHeader = false,
+  noindex = false,
+} = Astro.props;
 
 const fullTitle = title ? `${title} | ${site.shortName}` : `${site.shortName} | Higienização de Estofados em Taboão da Serra`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -29,15 +47,17 @@ const localBusiness = {
   '@type': 'HomeAndConstructionBusiness',
   '@id': `${site.url}/#empresa`,
   name: site.name,
+  legalName: site.legalName,
+  taxID: site.cnpj,
   url: site.url,
   telephone: site.phoneE164,
+  email: site.email,
   image: ogImageUrl.href,
   description: site.description,
   priceRange: '$$',
+  // Empresa de área de serviço: o endereço completo (casa do dono) não é publicado.
   address: {
     '@type': 'PostalAddress',
-    streetAddress: site.address.street,
-    postalCode: site.address.postalCode,
     addressLocality: site.city,
     addressRegion: site.region,
     addressCountry: 'BR',
@@ -72,6 +92,7 @@ const localBusiness = {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.ico" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#0d3a8c" />
@@ -85,14 +106,8 @@ const localBusiness = {
     <meta property="og:image" content={ogImageUrl} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
     <script is:inline>document.documentElement.classList.add('js');</script>
+    <Analytics />
     <script type="application/ld+json" set:html={JSON.stringify(localBusiness)} />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
@@ -103,7 +118,8 @@ const localBusiness = {
       <slot />
     </main>
     <Footer />
-    <WhatsAppFloat />
+    <FloatButtons />
+    {trackingIds.length > 0 && <CookieConsent />}
 
     <script>
       // Revela seções ao entrar na tela.

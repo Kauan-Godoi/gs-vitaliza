@@ -4,15 +4,20 @@
 export const site = {
   name: 'GS Vitaliza Estofados',
   shortName: 'GS Vitaliza',
+  // MEI do Cal. Usados só na política de privacidade, no rodapé e nos dados estruturados.
+  legalName: '62.892.001 Carlos Eduardo Godoi Soares',
+  cnpj: '62.892.001/0001-45',
   url: 'https://gsvitaliza.com.br',
   description:
     'Higienização de sofás, colchões, poltronas, tapetes e bancos automotivos a domicílio em Taboão da Serra e região. Elimina ácaros, manchas e odores.',
   phoneDisplay: '(11) 97575-1247',
   phoneE164: '+5511975751247',
+  email: 'adm@gsvitaliza.com.br',
   whatsappNumber: '5511975751247',
   instagram: 'https://www.instagram.com/gsvitaliza',
   instagramHandle: '@gsvitaliza',
   owner: { name: 'Cal', fullName: 'Carlos Eduardo Godoi Soares', experience: '1 ano e meio' },
+  // Casa do dono: NÃO exibir no site nem nos dados estruturados (empresa de área de serviço).
   address: {
     street: 'R. Senegal, 29a',
     district: 'Parque Monte Alegre',
@@ -37,6 +42,25 @@ export const site = {
   formspree: 'https://formspree.io/f/mdalegbn',
 };
 
+// Google Analytics 4 e Google Ads. Com os IDs vazios, nenhum script de rastreamento é carregado.
+// Preencha quando as contas estiverem criadas (ver "Google Ads" no CLAUDE.md).
+export const tracking = {
+  /** ID da métrica do Google Analytics 4 (ex.: 'G-XXXXXXXXXX'). */
+  ga4Id: '',
+  /** ID da conta do Google Ads (ex.: 'AW-123456789'). */
+  googleAdsId: '',
+  /** Rótulos das ações de conversão do Google Ads: a parte depois da barra em 'AW-123456789/AbC-dEfG'. */
+  conversions: {
+    whatsapp: '',
+    phone: '',
+    email: '',
+    form: '',
+  },
+};
+
+/** IDs preenchidos em `tracking`. Vazio = sem tag do Google e sem aviso de cookies. */
+export const trackingIds = [tracking.googleAdsId, tracking.ga4Id].filter(Boolean);
+
 export function whatsappLink(message = 'Olá! Vim pelo site e gostaria de um orçamento de higienização.') {
   return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
@@ -44,21 +68,21 @@ export function whatsappLink(message = 'Olá! Vim pelo site e gostaria de um or�
 export const services = [
   {
     id: 'sofas',
-    title: 'Sofás',
+    title: 'Sofá',
     icon: 'sofa',
-    text: 'Sofás retráteis, de canto, chaise e sofá-cama. Limpeza profunda por extração que remove sujeira acumulada, manchas do dia a dia e odores.',
+    text: 'Higienização completa de sofás de todos os tipos — retráteis, de canto, chaise e sofá-cama. Limpeza profunda por extração que remove sujeira encravada, manchas, ácaros e maus odores. Devolve a aparência e o conforto originais!',
   },
   {
     id: 'colchoes',
     title: 'Colchões',
     icon: 'bed',
-    text: 'Solteiro, casal, queen e king. Eliminação de ácaros, fungos e resíduos de suor — ideal para quem tem rinite, alergias ou crianças em casa.',
+    text: 'Higienização profissional de colchões de todos os tamanhos. Remove ácaros, bactérias, fungos, resíduos de suor e alérgenos. Essencial para quem busca um sono mais saudável e livre de irritações respiratórias.',
   },
   {
     id: 'automotivos',
     title: 'Bancos automotivos',
     icon: 'car',
-    text: 'Bancos de tecido e couro, carpetes e teto do carro. Higienização completa do interior sem precisar levar o carro a lugar nenhum.',
+    text: 'Limpeza e higienização interna de veículos — bancos de tecido e couro, carpetes, portas e teto. Remove sujeira, odores e bactérias.',
   },
   {
     id: 'poltronas-cadeiras',

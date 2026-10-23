@@ -24,8 +24,12 @@ import { site, whatsappLink } from '../../data/site';
 
       <form class="contact__form" action={site.formspree} method="POST">
         <h3>Prefere e-mail?</h3>
+        <p class="contact__note">
+          Preencha abaixo ou escreva para <a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
         <input type="hidden" name="_language" value="pt-BR" />
         <input type="hidden" name="_subject" value="Novo contato pelo site GS Vitaliza" />
+        <input type="hidden" name="origem" value="" />
         <label>
           <span>Nome</span>
           <input name="nome" type="text" autocomplete="name" required />
@@ -43,10 +47,45 @@ import { site, whatsappLink } from '../../data/site';
           <textarea name="mensagem" rows="3" required></textarea>
         </label>
         <button class="btn btn--primary" type="submit">Enviar mensagem</button>
+        <p class="contact__error" role="alert" hidden>
+          Não foi possível enviar agora. Tente de novo ou chame a gente no WhatsApp.
+        </p>
       </form>
     </div>
   </div>
 </section>
+
+<script>
+  // Envia pelo Formspree sem sair do site e leva para /obrigado, onde a conversão do Google Ads é registrada.
+  // Sem JS, o formulário continua funcionando pelo envio normal.
+  const form = document.querySelector<HTMLFormElement>('.contact__form');
+  if (form) {
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const error = form.querySelector<HTMLElement>('.contact__error')!;
+    const origin = form.querySelector<HTMLInputElement>('input[name="origem"]')!;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      try {
+        origin.value = sessionStorage.getItem('gs-origem') ?? 'direto';
+      } catch {}
+      button.disabled = true;
+      error.hidden = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        location.href = '/obrigado/';
+      } catch {
+        error.hidden = false;
+        button.disabled = false;
+      }
+    });
+  }
+</script>
 
 <style>
   .contact {
@@ -90,7 +129,19 @@ import { site, whatsappLink } from '../../data/site';
 
   .contact__form h3 {
     font-size: 1.2rem;
-    margin-bottom: 4px;
+    margin-bottom: 0;
+  }
+
+  .contact__error {
+    margin: 0;
+    color: #b42318;
+    font-size: 0.9rem;
+  }
+
+  .contact__note {
+    margin: 0 0 4px;
+    color: var(--muted);
+    font-size: 0.9rem;
   }
 
   .contact__form label {

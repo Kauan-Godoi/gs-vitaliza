@@ -1,0 +1,219 @@
+---
+// Ao mudar o formulário de contato ou adotar uma nova ferramenta, revise esta página e a data abaixo.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, whatsappLink } from '../data/site';
+
+const updated = { iso: '2026-10-23', label: '23 de outubro de 2026' };
+const whatsappHref = whatsappLink('Olá! Tenho uma solicitação sobre os meus dados pessoais.');
+---
+
+<BaseLayout
+  title="Política de privacidade"
+  description={`Como a ${site.name} coleta, usa e protege seus dados pessoais, de acordo com a LGPD.`}
+>
+  <section class="section">
+    <div class="container privacy">
+      <h1 class="section-title">Política de Privacidade</h1>
+      <p class="privacy__updated">Última atualização: <time datetime={updated.iso}>{updated.label}</time></p>
+
+      <p>
+        A {site.name} ("nós") respeita a sua privacidade. Esta política explica quais dados pessoais coletamos, por que
+        coletamos, com quem compartilhamos e quais são os seus direitos, conforme a Lei Geral de Proteção de Dados (Lei nº
+        13.709/2018 – LGPD).
+      </p>
+
+      <h2>1. Quem é o responsável pelos seus dados</h2>
+      <p>
+        A {site.name} (razão social {site.legalName}, CNPJ {site.cnpj}), empresa de higienização de estofados a domicílio
+        em {site.city}/{site.region}, é a controladora dos dados pessoais tratados por meio deste site, do WhatsApp e dos
+        nossos atendimentos. Contato: WhatsApp <a href={whatsappHref} target="_blank" rel="noopener">{site.phoneDisplay}</a>,
+        e-mail <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+
+      <h2>2. Quais dados coletamos</h2>
+      <ul>
+        <li>
+          <strong>Formulário de contato:</strong> nome, telefone/WhatsApp, e-mail e a mensagem que você escrever sobre o
+          que precisa higienizar.
+        </li>
+        <li>
+          <strong>Origem da visita:</strong> quando você chega por um anúncio ou link, registramos informações de campanha
+          (como o identificador de clique do Google Ads e parâmetros UTM) junto com o pedido de orçamento, para sabermos qual
+          anúncio funcionou.
+        </li>
+        <li>
+          <strong>Conversas pelo WhatsApp, telefone ou Instagram:</strong> nome, número, mensagens e fotos dos estofados que
+          você enviar.
+        </li>
+        <li>
+          <strong>Atendimento:</strong> endereço onde o serviço será feito, data e horário, itens higienizados, valores e
+          forma de pagamento.
+        </li>
+        <li>
+          <strong>Navegação no site:</strong> páginas visitadas, tipo de dispositivo e navegador, localização aproximada e
+          endereço IP, coletados por cookies e ferramentas do Google (veja a seção 6).
+        </li>
+      </ul>
+      <p>Não pedimos dados sensíveis (como saúde, religião ou origem racial) e pedimos que você não os envie.</p>
+
+      <h2>3. Para que usamos os dados</h2>
+      <ul>
+        <li>
+          Responder pedidos de orçamento e agendar, realizar e cobrar os serviços (execução de contrato e procedimentos
+          preliminares – art. 7º, V, da LGPD).
+        </li>
+        <li>
+          Fazer o pós-atendimento, tirar dúvidas, tratar reclamações e acionar garantias (execução de contrato e legítimo
+          interesse).
+        </li>
+        <li>
+          Organizar o histórico de clientes e atendimentos em um sistema de gestão de clientes (CRM), para atender melhor
+          quem volta a nos procurar (legítimo interesse).
+        </li>
+        <li>
+          Enviar lembretes de manutenção, como a próxima higienização recomendada, e avisos sobre o seu atendimento
+          (legítimo interesse, sempre com opção de parar de receber).
+        </li>
+        <li>Enviar ofertas e promoções, somente se você autorizar (consentimento).</li>
+        <li>
+          Medir o desempenho do site e dos anúncios (legítimo interesse e, para os cookies de medição e de publicidade,
+          consentimento dado no aviso de cookies – veja a seção 6).
+        </li>
+        <li>Cumprir obrigações legais, fiscais e contábeis (cumprimento de obrigação legal).</li>
+      </ul>
+
+      <h2>4. Sistema de gestão de clientes (CRM) e mensagens</h2>
+      <p>
+        Podemos usar um CRM para guardar seus dados de contato e o histórico dos atendimentos, e para enviar mensagens pelo
+        WhatsApp, inclusive pela plataforma oficial do WhatsApp Business. Mensagens promocionais só são enviadas para quem
+        autorizou. Você pode parar de receber a qualquer momento respondendo "SAIR" ou pedindo pelos nossos canais.
+        Mensagens sobre um atendimento em andamento continuam enquanto ele durar.
+      </p>
+
+      <h2>5. Com quem compartilhamos</h2>
+      <p>Não vendemos nem alugamos seus dados. Compartilhamos somente o necessário com:</p>
+      <ul>
+        <li><strong>Formspree</strong>, que recebe e nos encaminha os formulários do site;</li>
+        <li>
+          <strong>Google</strong> (Google Analytics, Google Ads e Perfil da Empresa no Google), para medição, anúncios e
+          avaliações;
+        </li>
+        <li><strong>Meta/WhatsApp</strong>, para a troca de mensagens;</li>
+        <li>o fornecedor do nosso <strong>sistema de gestão de clientes (CRM)</strong>;</li>
+        <li>
+          <strong>GitHub Pages</strong> (GitHub, empresa da Microsoft, nos Estados Unidos), que hospeda o site e registra
+          dados técnicos de acesso, como o endereço IP;
+        </li>
+        <li><strong>contabilidade</strong> e meios de pagamento, para fins fiscais e financeiros;</li>
+        <li><strong>autoridades</strong>, quando exigido por lei ou ordem judicial.</li>
+      </ul>
+      <p>
+        Alguns desses fornecedores guardam dados em servidores fora do Brasil, como nos Estados Unidos. Nesses casos, a
+        transferência segue o art. 33 da LGPD e os fornecedores adotam medidas de segurança e cláusulas contratuais de
+        proteção de dados.
+      </p>
+
+      <h2>6. Cookies e ferramentas de medição</h2>
+      <p>
+        Usamos o Google Analytics e o Google Ads para saber como o site é usado e quais anúncios geram contatos. Essas
+        ferramentas usam cookies e identificadores do navegador.
+      </p>
+      <p>
+        Na primeira visita, um aviso no rodapé da tela pergunta se você aceita esses cookies. Até você clicar em "Aceitar",
+        eles ficam desativados: o Google recebe apenas sinais básicos e sem cookies (como a página visitada e o tipo de
+        dispositivo), sem identificar o seu navegador. Se você clicar em "Recusar", continua assim. A sua escolha fica
+        guardada no seu próprio navegador para o aviso não aparecer de novo, e você pode mudá-la a qualquer momento pelo link
+        "Preferências de cookies", no rodapé do site.
+      </p>
+      <p>
+        Você também pode bloquear ou apagar cookies nas configurações do seu navegador e gerenciar anúncios personalizados
+        em <a href="https://myadcenter.google.com/" target="_blank" rel="noopener">myadcenter.google.com</a>. O site continua
+        funcionando sem esses cookies.
+      </p>
+
+      <h2>7. Avaliações do Google</h2>
+      <p>
+        Exibimos no site avaliações públicas feitas no nosso Perfil da Empresa no Google: nome público do autor, foto de
+        perfil, nota, texto e data. Elas são obtidas pela API oficial do Perfil da Empresa no Google, que acessamos apenas
+        para ler as avaliações do nosso próprio perfil. O uso dessas informações segue a Política de Dados do Usuário dos
+        Serviços de API do Google, incluindo os requisitos de Uso Limitado. Se você quiser que a sua avaliação deixe de
+        aparecer no site, fale conosco. Para apagá-la do Google, você mesmo pode excluí-la na sua conta Google.
+      </p>
+
+      <h2>8. Fotos de antes e depois</h2>
+      <p>
+        As fotos de resultados mostradas no site e nas redes sociais mostram apenas os estofados. Não publicamos o seu nome,
+        rosto, endereço ou qualquer informação que identifique você ou a sua casa sem autorização. Se reconhecer um item seu
+        e quiser que a foto seja retirada, basta pedir.
+      </p>
+
+      <h2>9. Por quanto tempo guardamos</h2>
+      <ul>
+        <li>Pedidos de orçamento que não viraram serviço: até 12 meses.</li>
+        <li>
+          Dados de clientes atendidos: enquanto houver relacionamento e por até 5 anos após o último atendimento, prazo das
+          obrigações fiscais e do Código de Defesa do Consumidor.
+        </li>
+        <li>Dados usados para envio de ofertas: até você retirar o consentimento.</li>
+      </ul>
+      <p>Depois desses prazos, os dados são excluídos ou anonimizados.</p>
+
+      <h2>10. Como protegemos</h2>
+      <p>
+        Usamos fornecedores com conexão segura (HTTPS), acesso restrito por senha e autenticação, e limitamos o acesso aos
+        dados a quem precisa deles para atender você. Nenhum sistema é 100% seguro, mas, se acontecer um incidente que possa
+        causar risco ou dano relevante, avisaremos você e a Autoridade Nacional de Proteção de Dados (ANPD), como a lei
+        exige.
+      </p>
+
+      <h2>11. Seus direitos</h2>
+      <p>
+        Você pode, a qualquer momento e sem custo: confirmar se tratamos seus dados; acessar seus dados; corrigir dados
+        incompletos ou desatualizados; pedir anonimização, bloqueio ou eliminação de dados desnecessários; pedir a
+        portabilidade; saber com quem compartilhamos; revogar o consentimento; e se opor a um tratamento. Para isso, fale com
+        a gente pelo WhatsApp <a href={whatsappHref} target="_blank" rel="noopener">{site.phoneDisplay}</a> ou pelo e-mail{' '}
+        <a href={`mailto:${site.email}`}>{site.email}</a>. Responderemos em até 15 dias. Você também pode reclamar à ANPD
+        (<a href="https://www.gov.br/anpd" target="_blank" rel="noopener">gov.br/anpd</a>).
+      </p>
+
+      <h2>12. Menores de idade</h2>
+      <p>
+        Nossos serviços são contratados por adultos. Não coletamos dados de menores de 18 anos de forma intencional.
+      </p>
+
+      <h2>13. Alterações</h2>
+      <p>
+        Podemos atualizar esta política, por exemplo ao adotar uma nova ferramenta. A data no topo indica a última versão.
+        Mudanças importantes serão avisadas no site.
+      </p>
+
+      <h2>14. Contato</h2>
+      <p>
+        Dúvidas sobre privacidade ou pedidos sobre seus dados: WhatsApp{' '}
+        <a href={whatsappHref} target="_blank" rel="noopener">{site.phoneDisplay}</a> · e-mail{' '}
+        <a href={`mailto:${site.email}`}>{site.email}</a> · Instagram{' '}
+        <a href={site.instagram} target="_blank" rel="noopener">{site.instagramHandle}</a> · {site.city}/{site.region}.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .privacy {
+    max-width: 760px;
+  }
+
+  .privacy__updated {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .privacy h2 {
+    font-size: 1.25rem;
+    margin-top: 32px;
+  }
+
+  .privacy li + li {
+    margin-top: 8px;
+  }
+</style>

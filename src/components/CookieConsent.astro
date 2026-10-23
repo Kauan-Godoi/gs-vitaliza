@@ -1,0 +1,142 @@
+---
+// Aviso de cookies (LGPD + Consent Mode v2). Só entra na página quando há IDs em `tracking`.
+// A escolha fica no localStorage ('gs-consent'); o link "Preferências de cookies" do rodapé reabre o aviso.
+---
+
+<div class="consent" role="region" aria-label="Aviso de cookies" data-consent hidden>
+  <p class="consent__text">
+    Usamos cookies para medir visitas e anúncios. <a href="/privacidade/">Saiba mais</a>
+  </p>
+  <div class="consent__actions">
+    <button class="consent__btn" type="button" data-consent-choice="denied">Recusar</button>
+    <button class="consent__btn consent__btn--accept" type="button" data-consent-choice="granted">Aceitar</button>
+  </div>
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-consent]');
+  if (bar) {
+    // No celular a barra ocupa o rodapé da tela: reserva o espaço para o fim da página não ficar escondido.
+    const reserve = () => {
+      document.body.style.paddingBottom = bar.hidden ? '' : `${bar.offsetHeight}px`;
+    };
+    const show = () => {
+      bar.hidden = false;
+      reserve();
+    };
+    const hide = () => {
+      bar.hidden = true;
+      reserve();
+    };
+
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem('gs-consent');
+    } catch {}
+    if (!saved) show();
+
+    bar.addEventListener('click', (event) => {
+      const button = event.target instanceof Element && event.target.closest<HTMLElement>('[data-consent-choice]');
+      if (!button) return;
+      window.gsConsent?.(button.dataset.consentChoice === 'granted');
+      hide();
+    });
+
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('[data-cookie-prefs]')) {
+        show();
+        bar.querySelector<HTMLElement>('[data-consent-choice]')?.focus();
+      }
+    });
+
+    new ResizeObserver(reserve).observe(bar);
+  }
+</script>
+
+<style>
+  .consent {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 39;
+    display: flex;
+    align-items: center;
+    gap: 16px 24px;
+    max-width: 620px;
+    padding: 14px 16px 14px 20px;
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-radius: var(--radius);
+    background: var(--blue-900);
+    color: rgb(255 255 255 / 0.85);
+    box-shadow: 0 16px 40px -12px rgb(0 0 0 / 0.45);
+    font-size: 0.9rem;
+  }
+
+  .consent[hidden] {
+    display: none;
+  }
+
+  .consent__text {
+    margin: 0;
+  }
+
+  .consent__text a {
+    color: #fff;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .consent__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .consent__btn {
+    min-width: 96px;
+    padding: 9px 16px;
+    border: 1px solid rgb(255 255 255 / 0.3);
+    border-radius: 999px;
+    background: transparent;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .consent__btn:hover {
+    background: rgb(255 255 255 / 0.1);
+  }
+
+  .consent__btn--accept {
+    border-color: var(--blue-600);
+    background: var(--blue-600);
+  }
+
+  .consent__btn--accept:hover {
+    background: var(--blue-700);
+  }
+
+  /* Celular: barra encostada no rodapé da tela, deixando à direita o espaço dos botões flutuantes
+     (Instagram + WhatsApp), que ficam por cima dela. */
+  @media (max-width: 640px) {
+    .consent {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      gap: 8px;
+      max-width: none;
+      min-height: 100px;
+      padding: 12px 152px 12px 16px;
+      border-radius: 16px 16px 0 0;
+      font-size: 0.82rem;
+    }
+
+    .consent__btn {
+      min-width: 0;
+      padding: 7px 10px;
+    }
+  }
+</style>

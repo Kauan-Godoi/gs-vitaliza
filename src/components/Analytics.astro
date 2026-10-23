@@ -1,0 +1,76 @@
+---
+// Tag do Google (GA4 + Google Ads) com Consent Mode v2 no modo avançado. Só é carregada quando há IDs em `tracking` (site.ts).
+// Tudo começa "denied"; o aviso de cookies (CookieConsent.astro) chama window.gsConsent() com a escolha do visitante.
+// Conversões contadas: clique no WhatsApp, no telefone, no e-mail e envio do formulário (página /obrigado).
+import { tracking, trackingIds } from '../data/site';
+
+const ids = trackingIds;
+const adsId = tracking.googleAdsId;
+const conversions = tracking.conversions;
+---
+
+<script is:inline>
+  // Guarda a origem da visita (gclid e UTMs do anúncio) para enviar junto com o formulário.
+  try {
+    const params = new URLSearchParams(location.search);
+    const keys = ['gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+    const found = keys.filter((k) => params.get(k)).map((k) => `${k}=${params.get(k)}`);
+    if (found.length) sessionStorage.setItem('gs-origem', found.join('&'));
+  } catch {}
+</script>
+
+{
+  ids.length > 0 && (
+    <>
+      <script is:inline define:vars={{ ids, adsId, conversions }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+
+        const consentState = (value) => ({
+          ad_storage: value,
+          ad_user_data: value,
+          ad_personalization: value,
+          analytics_storage: value,
+        });
+        gtag('consent', 'default', consentState('denied'));
+        // Sem consentimento: oculta dados de anúncio e mantém o gclid nos links internos para não perder a conversão.
+        gtag('set', 'ads_data_redaction', true);
+        gtag('set', 'url_passthrough', true);
+
+        let saved = null;
+        try {
+          saved = localStorage.getItem('gs-consent');
+        } catch {}
+        if (saved === 'granted') gtag('consent', 'update', consentState('granted'));
+
+        window.gsConsent = (granted) => {
+          try {
+            localStorage.setItem('gs-consent', granted ? 'granted' : 'denied');
+          } catch {}
+          gtag('consent', 'update', consentState(granted ? 'granted' : 'denied'));
+        };
+
+        gtag('js', new Date());
+        ids.forEach((id) => gtag('config', id));
+
+        window.gsTrack = (kind) => {
+          gtag('event', 'generate_lead', { method: kind });
+          if (adsId && conversions[kind]) gtag('event', 'conversion', { send_to: `${adsId}/${conversions[kind]}` });
+        };
+
+        document.addEventListener('click', (event) => {
+          const link = event.target instanceof Element && event.target.closest('a[href]');
+          if (!link) return;
+          const href = link.getAttribute('href');
+          if (href.includes('wa.me/')) window.gsTrack('whatsapp');
+          else if (href.startsWith('tel:')) window.gsTrack('phone');
+          else if (href.startsWith('mailto:')) window.gsTrack('email');
+        });
+      </script>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ids[0]}`} />
+    </>
+  )
+}

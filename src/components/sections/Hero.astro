@@ -6,6 +6,13 @@ import { site, whatsappLink } from '../../data/site';
 import cal from '../../assets/brand/cal-recorte.png';
 
 const rating = site.google.rating.toFixed(1).replace('.', ',');
+
+const highlights = [
+  { title: 'Remoção completa', text: 'sujidades, ácaros, bactérias, fungos, alérgenos e maus odores' },
+  { title: 'Atendimento', text: 'sofás, colchões, tapetes, estofados automotivos e os mais diversos tipos de estofados' },
+  { title: 'Produtos certificados', text: 'seguros para os tecidos e para sua família' },
+  { title: 'Comodidade', text: 'toda a estrutura levada até você' },
+];
 ---
 
 <section class="hero">
@@ -17,23 +24,27 @@ const rating = site.google.rating.toFixed(1).replace('.', ',');
       </a>
 
       <h1 class="hero__title">
-        Higienização profissional de estofados, direto na sua casa em <span>{site.city}</span>
+        Higienização profissional de estofados em <span>{site.city}</span> e região
       </h1>
-      <p class="hero__lead">
-        Removemos sujeira encravada, ácaros, bactérias, fungos e odores de sofás, colchões, bancos automotivos e
-        tapetes, com produtos profissionais que preservam o tecido. Levamos toda a estrutura até você.
-      </p>
+      <ul class="hero__list">
+        {highlights.map((h) => (
+          <li>
+            <span class="hero__check"><Icon name="check" size={14} /></span>
+            <span><strong>{h.title}:</strong> {h.text}</span>
+          </li>
+        ))}
+      </ul>
 
       <div class="hero__actions">
         <a class="btn btn--light" href={whatsappLink()} target="_blank" rel="noopener">
           <Icon name="whatsapp" /> Solicitar orçamento gratuito
         </a>
-        <a class="btn btn--ghost" href="#resultados">Ver resultados</a>
+        <a class="btn btn--ghost" href="#resultados">Antes e depois</a>
       </div>
 
       <ul class="hero__meta">
-        <li><Icon name="home" size={16} /> Atendimento a domicílio</li>
-        <li><Icon name="pin" size={16} /> {site.city} e Grande SP</li>
+        <li><Icon name="phone" size={16} /><a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a></li>
+        <li><Icon name="mail" size={16} /><a href={`mailto:${site.email}`}>{site.email}</a></li>
       </ul>
     </div>
 
@@ -112,11 +123,37 @@ const rating = site.google.rating.toFixed(1).replace('.', ',');
     color: var(--blue-500);
   }
 
-  .hero__lead {
+  .hero__list {
+    display: grid;
+    gap: 12px;
     max-width: 560px;
-    margin-bottom: 32px;
+    margin: 0 0 32px;
+    padding: 0;
+    list-style: none;
     color: rgb(255 255 255 / 0.72);
-    font-size: clamp(1rem, 1.5vw, 1.12rem);
+    font-size: clamp(1rem, 1.5vw, 1.08rem);
+  }
+
+  .hero__list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .hero__list strong {
+    color: #fff;
+  }
+
+  .hero__check {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    border-radius: 50%;
+    background: var(--blue-600);
+    color: #fff;
   }
 
   .hero__actions {
@@ -145,7 +182,17 @@ const rating = site.google.rating.toFixed(1).replace('.', ',');
   }
 
   .hero__meta :global(svg) {
+    flex-shrink: 0;
     color: var(--blue-500);
+  }
+
+  .hero__meta a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .hero__meta a:hover {
+    color: #fff;
   }
 
   .hero__media {
