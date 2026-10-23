@@ -87,8 +87,7 @@ npm run reviews    # busca avaliações do Google (só funciona com as credencia
 ## Próximos passos (do lado do Kauan)
 
 **Prioridade agora:**
-1. **Google Ads:** criar as ações de conversão e preencher `tracking` em `src/data/site.ts` (ver "Google Ads" abaixo).
-2. **Google Search Console:** verificar o domínio. Se for pela tag HTML, adicionar a `<meta name="google-site-verification">` no `BaseLayout.astro` (o código vem do Search Console); depois enviar `https://gsvitaliza.com.br/sitemap-index.xml`.
+1. **Google Search Console:** verificar o domínio. Se for pela tag HTML, adicionar a `<meta name="google-site-verification">` no `BaseLayout.astro` (o código vem do Search Console); depois enviar `https://gsvitaliza.com.br/sitemap-index.xml`.
 
 **Pendências técnicas:**
 - Marcar **Enforce HTTPS** em Settings → Pages (estava desligado em 23/10/2026).
@@ -110,10 +109,11 @@ npm run reviews    # busca avaliações do Google (só funciona com as credencia
 O site novo existe para receber tráfego de anúncios do Google Ads depois da publicação. Priorize conversão (botões de orçamento visíveis, WhatsApp, velocidade) em toda mudança.
 
 - IDs em `tracking` (`src/data/site.ts`). **Vazios = nenhum script do Google, nenhum aviso de cookies e nenhum link "Preferências de cookies".**
+- **Status (23/10/2026):** IDs preenchidos. GA4 `G-2TEQ6JB86T`; Google Ads `AW-18241594151`, com rótulos para `form`, `whatsapp`, `phone` e `email` (o `send_to` é montado como `AW-18241594151/<rótulo>`). Testado no Chrome headless com as requisições ao Google bloqueadas, para não gerar conversões falsas na conta.
 - Consent Mode v2, modo avançado: `ad_storage`, `ad_user_data`, `ad_personalization` e `analytics_storage` começam `denied` antes da tag; `ads_data_redaction` e `url_passthrough` ligados. A escolha fica no `localStorage` (`gs-consent`). O aviso (`CookieConsent.astro`) é um cartão no canto inferior esquerdo no desktop e uma barra no rodapé da tela no celular, com espaço à direita para os botões flutuantes; testado em 390×844 sem cobrir o botão "Solicitar orçamento gratuito" do hero.
 - `Analytics.astro` carrega a tag do Google (gtag) e conta como conversão: clique em link `wa.me` (`whatsapp`), `tel:` (`phone`), `mailto:` (`email`) e a visita a `/obrigado` (`form`). Cada um dispara `generate_lead` no GA4 e, se houver rótulo em `tracking.conversions`, a conversão do Ads.
 - O formulário envia via `fetch` ao Formspree e redireciona para `/obrigado/`. O campo oculto `origem` leva o `gclid`/UTMs da visita (guardados no `sessionStorage`).
-- Para ativar: criar as ações de conversão no Google Ads (tipo "Site", configuração manual com código), copiar o `AW-...` e os rótulos para `tracking`; opcionalmente criar a propriedade GA4 (`G-...`) e vincular ao Ads.
+- Para trocar ou adicionar uma conversão: criar as ações de conversão no Google Ads (tipo "Site", configuração manual com código), copiar o `AW-...` e os rótulos para `tracking`; opcionalmente criar a propriedade GA4 (`G-...`) e vincular ao Ads.
 - A política de privacidade (`/privacidade`) lista os dados coletados (campos do formulário, `origem`) e os fornecedores (Formspree, Google Analytics/Ads/Perfil da Empresa, Meta/WhatsApp, CRM, GitHub Pages) e descreve o aviso de cookies. Atualize a política e a data dela se mudar o formulário ou entrar outra ferramenta.
 
 ## Publicação
