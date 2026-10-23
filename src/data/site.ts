@@ -9,7 +9,7 @@ export const site = {
   cnpj: '62.892.001/0001-45',
   url: 'https://gsvitaliza.com.br',
   description:
-    'Higienização de sofás, colchões, poltronas, tapetes e bancos automotivos a domicílio em Taboão da Serra e região. Elimina ácaros, manchas e odores.',
+    'Higienização e impermeabilização de sofás, colchões, poltronas, tapetes, carpetes e bancos automotivos a domicílio em Taboão da Serra e região.',
   phoneDisplay: '(11) 97575-1247',
   phoneE164: '+5511975751247',
   email: 'adm@gsvitaliza.com.br',
@@ -80,6 +80,12 @@ export const services = [
     text: 'Higienização profissional de colchões de todos os tamanhos. Remove ácaros, bactérias, fungos, resíduos de suor e alérgenos. Essencial para quem busca um sono mais saudável e livre de irritações respiratórias.',
   },
   {
+    id: 'cabeceiras',
+    title: 'Cabeceiras',
+    icon: 'headboard',
+    text: 'Cabeceiras estofadas de camas de todos os tamanhos, higienizadas no local. Remove poeira, ácaros, manchas e a sujeira que se acumula onde a cabeça encosta.',
+  },
+  {
     id: 'automotivos',
     title: 'Bancos automotivos',
     icon: 'car',
@@ -98,10 +104,24 @@ export const services = [
     text: 'Tapetes de sala e quarto. Recuperamos cores e textura, removendo pó, pelos de pets e sujeira impregnada nas fibras.',
   },
   {
+    id: 'carpetes',
+    title: 'Carpetes',
+    icon: 'carpet',
+    text: 'Carpetes de residências, escritórios e comércios. Limpeza profunda por extração que remove poeira, manchas e a sujeira acumulada nas fibras.',
+  },
+  {
     id: 'infantil',
     title: 'Itens infantis',
     icon: 'baby',
     text: 'Cadeirinhas de carro, bebê-conforto e pelúcias. Higienização cuidadosa, com produtos seguros para os pequenos.',
+  },
+  {
+    id: 'impermeabilizacao',
+    title: 'Impermeabilização',
+    icon: 'droplet',
+    text: 'Impermeabilização de sofás, poltronas, cadeiras e outros estofados. Cria uma proteção nas fibras do tecido que ajuda a evitar que líquidos e sujeira penetrem, facilitando a limpeza no dia a dia.',
+    /** Texto da mensagem de orçamento no WhatsApp (o padrão é "higienização de <título>"). */
+    quote: 'impermeabilização de estofados',
   },
 ] as const;
 
