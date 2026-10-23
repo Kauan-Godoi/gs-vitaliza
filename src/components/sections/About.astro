@@ -13,8 +13,8 @@ const photoAlt = owner ? `${site.owner.name} durante um atendimento da GS Vitali
 
 const stats = [
   { value: site.google.rating.toFixed(1).replace('.', ','), label: 'nota média no Google' },
-  { value: `${site.google.reviewCount}+`, label: 'avaliações de clientes' },
-  { value: '18+', label: 'meses de experiência' },
+  { value: `${site.google.reviewCount}`, label: 'avaliações de clientes' },
+  { value: '7 dias', label: 'de atendimento' },
 ];
 ---
 
@@ -32,15 +32,16 @@ const stats = [
       <span class="eyebrow">Sobre nós</span>
       <h2 class="section-title">Cuidar da sua casa é cuidar de quem mora nela</h2>
 
-      <!-- TODO: completar com a história do Cal (como começou, por que escolheu a área, o que o motiva). -->
+      {/* TODO: trocar pelo texto com a história do Cal (como começou, por que escolheu a área, o que o motiva).
+          Texto provisório e genérico de propósito: não citar anos de experiência, cursos nem números sem confirmação. */}
       <p>
-        Por trás da GS Vitaliza está o <strong>{site.owner.name}</strong> ({site.owner.fullName}). Há {site.owner.experience}
-        ele leva até a casa das pessoas uma higienização de estofados feita com técnica, bons produtos e atenção de verdade.
+        Por trás da GS Vitaliza está o <strong>{site.owner.name}</strong>, que leva até a sua casa a higienização de sofás,
+        colchões, tapetes e bancos de carro, com equipamento profissional e produtos certificados.
       </p>
       <p>
-        Cada atendimento é tratado como único: antes de começar, o {site.owner.name} avalia o tecido e o tipo de sujeira para
-        escolher o método certo — e só encerra o serviço quando o resultado está à altura do que você esperava. É por isso
-        que tantos clientes fazem questão de deixar sua avaliação.
+        O atendimento é direto com ele, do orçamento pelo WhatsApp até o serviço no seu espaço: cada peça é avaliada antes
+        de começar, e você sabe com clareza o que dá para resolver. As avaliações dos clientes no Google mostram o resultado
+        desse cuidado.
       </p>
 
       <dl class="about__stats">

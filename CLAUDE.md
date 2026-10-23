@@ -6,10 +6,10 @@ Todo o conteúdo do site e a comunicação com o usuário são em **português d
 
 ## Estado atual (out/2026)
 
-- O site novo foi refeito do zero em **Astro** e está na **branch `redesign`**, enviada para `origin/redesign`.
-- **Ainda NÃO foi mesclado na `main` e o usuário pediu para NÃO publicar ainda.** O site no ar continua sendo o antigo (template Bootstrap) da `main`. Não fazer merge, push na `main` ou abrir PR sem pedido explícito.
-- `git checkout main` mostra o site antigo; `git checkout redesign` volta para o novo.
-- As alterações antigas não commitadas da `main` foram descartadas a pedido do usuário.
+- **O site novo (Astro) está publicado** em https://gsvitaliza.com.br desde 23/10/2026: a `redesign` foi mesclada na `main` por PR, a pedido do usuário, antes da API de avaliações.
+- O GitHub Pages publica pelo workflow `.github/workflows/deploy.yml` (Source = GitHub Actions). **Todo push na `main` vai para o ar.** Trabalhe na `redesign` (ou outra branch) e só mescle na `main` quando o usuário pedir.
+- O site antigo (template Bootstrap) está guardado na tag **`site-antigo`**. Para voltar atrás em emergência: reverter o merge na `main` (`git revert -m 1 <merge>`) ou publicar a partir da tag.
+- O site antigo só tinha `/index.html`, que continua existindo no site novo; não foi preciso criar redirecionamentos.
 
 ## Comandos
 
@@ -60,7 +60,7 @@ npm run reviews    # busca avaliações do Google (só funciona com as credencia
 - Cidades: Taboão da Serra, Osasco, Santo Amaro, Embu das Artes, Itapevi, Cotia e toda a Grande São Paulo.
 - Pagamento: crédito, débito, Pix e dinheiro.
 - Endereço (Perfil no Google): R. Senegal, 29a – Parque Monte Alegre, Taboão da Serra/SP, 06756-420. É a casa do dono: **não aparece no site** (decisão de out/2026). Fica só em `site.address`, sem uso em páginas. A empresa é tratada como área de serviço (atende a domicílio).
-- Perfil no Google: https://share.google/CQ8j87iS3gHWhDKkn (nota 5,0, 56 avaliações em set/2026).
+- Perfil no Google: https://share.google/CQ8j87iS3gHWhDKkn (nota 5,0, 62 avaliações em 23/10/2026; atualizar `site.google.reviewCount` à mão até a API estar ativa).
 - WhatsApp: (11) 97575-1247. Instagram: @gsvitaliza. Formulário: Formspree `mdalegbn`.
 - Empresa: MEI. Razão social 62.892.001 Carlos Eduardo Godoi Soares, CNPJ 62.892.001/0001-45 (`site.legalName` / `site.cnpj`). Aparecem só na política de privacidade, no rodapé e nos dados estruturados; no resto do site o dono é sempre "Cal".
 
@@ -71,8 +71,8 @@ npm run reviews    # busca avaliações do Google (só funciona com as credencia
 
 ## Pendências (aguardando o cliente)
 
-1. História do Cal para a seção Sobre (há um `TODO` em `About.astro`).
-2. Tempo médio de secagem (`TODO` em `site.ts`, nas perguntas frequentes).
+1. História do Cal para a seção Sobre. Hoje há um texto genérico provisório (sem anos de experiência, cursos ou números) e um `TODO` em `About.astro`.
+2. Tempo médio de secagem. A pergunta foi **removida** do FAQ (site e dados estruturados) até haver resposta confirmada; `TODO` em `site.ts`.
 3. Confirmar a lista de serviços e se há extras (impermeabilização, cortinas, cabeceiras, empresas).
 4. Diferenciais concretos (garantia, produtos, cursos) e outras perguntas frequentes.
 5. Link "Pedir avaliações" do painel do Perfil da Empresa (`site.google.reviewUrl`; hoje aponta para o perfil).
@@ -101,12 +101,13 @@ O site novo existe para receber tráfego de anúncios do Google Ads depois da pu
 - Para ativar: criar as ações de conversão no Google Ads (tipo "Site", configuração manual com código), copiar o `AW-...` e os rótulos para `tracking`; opcionalmente criar a propriedade GA4 (`G-...`) e vincular ao Ads.
 - A política de privacidade (`/privacidade`) lista os dados coletados (campos do formulário, `origem`) e os fornecedores (Formspree, Google Analytics/Ads/Perfil da Empresa, Meta/WhatsApp, CRM, GitHub Pages) e descreve o aviso de cookies. Atualize a política e a data dela se mudar o formulário ou entrar outra ferramenta.
 
-## Para publicar (somente quando o usuário pedir)
+## Publicação
 
-1. No GitHub: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
-2. Mesclar `redesign` na `main` (via PR). O workflow publica em 1 a 2 minutos.
-3. Depois do primeiro deploy, marcar **Enforce HTTPS** em Settings → Pages (a política de privacidade promete HTTPS).
-4. O DNS **não muda**: o domínio já aponta para o GitHub Pages deste repositório e o `CNAME` está em `public/`.
+1. **Settings → Pages → Source = GitHub Actions** (já configurado; antes era "Deploy from a branch", que serviria o código-fonte).
+2. Mudanças entram no ar ao mesclar na `main` (via PR). O workflow publica em 1 a 2 minutos.
+3. **Enforce HTTPS** em Settings → Pages deve ficar marcado (a política de privacidade promete HTTPS).
+4. Atualização manual das avaliações: **Actions → Deploy → Run workflow** (o `deploy.yml` tem `workflow_dispatch`); ele também roda todo dia às 09:00 UTC.
+5. O DNS **não muda**: o domínio já aponta para o GitHub Pages deste repositório e o `CNAME` está em `public/`.
 
 ## Git
 

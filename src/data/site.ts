@@ -34,7 +34,8 @@ export const site = {
   paymentMethods: ['Crédito', 'Débito', 'Pix', 'Dinheiro'],
   google: {
     rating: 5.0,
-    reviewCount: 56,
+    // Conferido no perfil em 23/10/2026. Atualizar à mão até a API de avaliações estar ativa.
+    reviewCount: 62,
     profileUrl: 'https://share.google/CQ8j87iS3gHWhDKkn',
     // TODO: link "Pedir avaliações" do painel business.google.com (g.page/r/.../review).
     reviewUrl: 'https://share.google/CQ8j87iS3gHWhDKkn',
@@ -106,7 +107,10 @@ export const services = [
 
 export const reasons = [
   { title: 'Vamos até você', text: 'Atendimento a domicílio com todo o equipamento. Você não precisa transportar nada.' },
-  { title: 'Nota 5,0 no Google', text: 'Média 5,0 em mais de 50 avaliações de clientes reais no Google.' },
+  {
+    title: `Nota ${site.google.rating.toFixed(1).replace('.', ',')} no Google`,
+    text: `Média ${site.google.rating.toFixed(1).replace('.', ',')} em ${site.google.reviewCount} avaliações de clientes reais no Google.`,
+  },
   { title: 'Produtos profissionais', text: 'Produtos de alta performance que limpam a fundo e preservam as fibras do tecido.' },
   { title: 'Saúde em primeiro lugar', text: 'Remoção de ácaros, fungos e bactérias — um ambiente mais saudável para sua família e pets.' },
   { title: 'Orçamento rápido', text: 'Mande uma foto pelo WhatsApp e receba seu orçamento sem compromisso.' },
@@ -120,12 +124,9 @@ export const steps = [
   { title: 'Resultado', text: 'Estofado limpo, cheiroso e livre de ácaros. É só aguardar a secagem e aproveitar.' },
 ];
 
-// TODO: confirmar com o cliente o tempo médio de secagem.
+// TODO: quando o cliente confirmar o tempo médio de secagem, voltar com a pergunta "Quanto tempo leva para secar?"
+// (fica no topo da lista). Removida antes da publicação para não mostrar informação sem confirmação.
 export const faq = [
-  {
-    q: 'Quanto tempo leva para secar?',
-    a: 'Depende do tecido, da ventilação e do clima. Em geral o estofado fica pronto para uso em algumas horas; deixar o ambiente arejado e com ventilador ligado acelera a secagem.',
-  },
   {
     q: 'Preciso estar em casa durante o serviço?',
     a: 'Sim, pedimos que alguém maior de idade receba a equipe e acompanhe o início do atendimento.',
