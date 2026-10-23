@@ -1,0 +1,92 @@
+---
+import Icon from '../Icon.astro';
+import { reasons } from '../../data/site';
+
+const icons = ['home', 'star', 'sparkle', 'shield', 'bolt', 'heart'] as const;
+---
+
+<section class="section why" id="por-que">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Por que a GS Vitaliza</span>
+      <h2 class="section-title">Cuidado profissional do começo ao fim</h2>
+      <p class="section-lead">Mais do que limpar: devolvemos conforto, aparência de novo e um ambiente saudável.</p>
+    </div>
+
+    <div class="why__grid">
+      {reasons.map((r, i) => (
+        <div class="why__item reveal">
+          <span class="why__icon"><Icon name={icons[i % icons.length]} /></span>
+          <div>
+            <h3>{r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why {
+    background: linear-gradient(160deg, var(--blue-900), var(--blue-800));
+    color: #fff;
+  }
+
+  .why .eyebrow {
+    color: #8cb8ff;
+  }
+
+  .why .section-lead {
+    color: rgb(255 255 255 / 0.75);
+  }
+
+  .why__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .why__item {
+    display: flex;
+    gap: 16px;
+    padding: 24px;
+    border-radius: var(--radius);
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .why__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--blue-500);
+    color: #fff;
+  }
+
+  .why__item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  .why__item p {
+    margin: 0;
+    color: rgb(255 255 255 / 0.75);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 1024px) {
+    .why__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .why__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

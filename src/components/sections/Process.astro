@@ -1,0 +1,155 @@
+---
+import Icon from '../Icon.astro';
+import { steps, whatsappLink } from '../../data/site';
+
+const icons = ['whatsapp', 'calendar', 'home', 'sparkle'] as const;
+---
+
+<section class="section section--soft" id="como-funciona">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Como funciona</span>
+      <h2 class="section-title">Do WhatsApp ao sofá renovado em 4 passos</h2>
+      <p class="section-lead">Simples, rápido e sem você precisar sair de casa.</p>
+    </div>
+
+    <ol class="steps">
+      {steps.map((s, i) => (
+        <li class="step reveal">
+          <div class="step__marker">
+            <span class="step__icon"><Icon name={icons[i]} size={26} /></span>
+            <span class="step__num">{i + 1}</span>
+          </div>
+          <h3>{s.title}</h3>
+          <p>{s.text}</p>
+        </li>
+      ))}
+    </ol>
+
+    <div class="steps__cta reveal">
+      <a class="btn btn--whatsapp" href={whatsappLink()} target="_blank" rel="noopener">
+        <Icon name="whatsapp" /> Começar pelo passo 1
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    position: relative;
+  }
+
+  /* Linha que liga os passos no desktop */
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 36px;
+    left: 12.5%;
+    right: 12.5%;
+    border-top: 2px dashed #b9cdf0;
+  }
+
+  .step {
+    position: relative;
+    text-align: center;
+  }
+
+  .step__marker {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+  }
+
+  .step__icon {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--blue-600);
+    border: 2px solid var(--blue-100);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .step:first-child .step__icon {
+    color: var(--whatsapp-dark);
+  }
+
+  .step__num {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--blue-600);
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
+
+  .step h3 {
+    font-size: 1.15rem;
+  }
+
+  .step p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    max-width: 260px;
+    margin-inline: auto;
+  }
+
+  .steps__cta {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 900px) {
+    .steps {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .steps::before {
+      top: 36px;
+      bottom: 36px;
+      left: 35px;
+      right: auto;
+      border-top: 0;
+      border-left: 2px dashed #b9cdf0;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      column-gap: 20px;
+      text-align: left;
+      padding-bottom: 28px;
+    }
+
+    .step__marker {
+      grid-row: span 2;
+      margin: 0;
+    }
+
+    .step h3 {
+      align-self: end;
+      margin-top: 8px;
+    }
+
+    .step p {
+      margin: 0;
+      max-width: none;
+    }
+  }
+</style>

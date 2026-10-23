@@ -1,0 +1,77 @@
+---
+import Icon from './Icon.astro';
+import { site, whatsappLink } from '../data/site';
+---
+
+<div class="float">
+  <a class="float__btn float__btn--instagram" href={site.instagram} target="_blank" rel="noopener" aria-label="Instagram da GS Vitaliza">
+    <Icon name="instagram" size={26} />
+  </a>
+  <a class="float__btn float__btn--whatsapp" href={whatsappLink()} target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <Icon name="whatsapp" size={30} />
+  </a>
+</div>
+
+<style>
+  .float {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .float__btn {
+    position: relative;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    box-shadow: 0 12px 28px -8px rgb(0 0 0 / 0.35);
+    transition: transform 0.15s ease;
+  }
+
+  .float__btn:hover {
+    transform: scale(1.06);
+  }
+
+  .float__btn--instagram {
+    width: 52px;
+    height: 52px;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  }
+
+  .float__btn--whatsapp {
+    width: 60px;
+    height: 60px;
+    background: var(--whatsapp);
+  }
+
+  .float__btn--whatsapp::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--whatsapp);
+    animation: pulse 2.4s ease-out infinite;
+  }
+
+  @keyframes pulse {
+    from {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    to {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .float__btn--whatsapp::after {
+      animation: none;
+    }
+  }
+</style>

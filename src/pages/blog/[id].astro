@@ -1,0 +1,196 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import PostCard from '../../components/PostCard.astro';
+import { site, whatsappLink } from '../../data/site';
+import { formatDate } from '../../utils/date';
+import { getPosts } from '../../utils/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { id: post.id }, props: { post, others: posts.filter((p) => p.id !== post.id).slice(0, 3) } }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  others: CollectionEntry<'blog'>[];
+}
+
+const { post, others } = Astro.props;
+const { Content } = await render(post);
+const cover = await getImage({ src: post.data.cover, width: 1200, format: 'jpg' });
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  image: new URL(cover.src, Astro.site).href,
+  mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href,
+  author: { '@type': 'Organization', name: site.name, url: site.url },
+  publisher: { '@id': `${site.url}/#empresa` },
+};
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} image={post.data.cover} type="article" jsonLd={articleSchema}>
+  <article class="post">
+    <header class="post__header container">
+      <a class="post__back" href="/blog/"><Icon name="arrow-left" size={18} /> Blog</a>
+      <h1>{post.data.title}</h1>
+      <p class="post__meta">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time> · Equipe {site.shortName}
+      </p>
+    </header>
+
+    <div class="post__cover container">
+      <Image src={post.data.cover} alt={post.data.coverAlt} widths={[640, 960, 1280]} sizes="(max-width: 900px) 94vw, 860px" loading="eager" />
+    </div>
+
+    <div class="post__content container">
+      <Content />
+
+      <aside class="post__cta">
+        <h2>Quer deixar seus estofados assim?</h2>
+        <p>Mande uma foto pelo WhatsApp e receba seu orçamento grátis. Atendemos {site.city} e toda a Grande São Paulo.</p>
+        <a class="btn btn--whatsapp" href={whatsappLink(`Olá! Li o artigo "${post.data.title}" e gostaria de um orçamento.`)} target="_blank" rel="noopener">
+          <Icon name="whatsapp" /> Solicitar orçamento gratuito
+        </a>
+      </aside>
+    </div>
+  </article>
+
+  {others.length > 0 && (
+    <section class="section section--soft">
+      <div class="container">
+        <h2 class="section-title">Leia também</h2>
+        <div class="related">
+          {others.map((p) => <PostCard post={p} />)}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .post {
+    padding-block: clamp(32px, 5vw, 64px) clamp(56px, 8vw, 96px);
+  }
+
+  .post__header,
+  .post__content {
+    max-width: 780px;
+  }
+
+  .post__cover {
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+
+  .post__cover :global(img) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  .post__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+
+  .post__header h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+  }
+
+  .post__meta {
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 28px;
+  }
+
+  .post__content {
+    font-size: 1.1rem;
+    line-height: 1.75;
+  }
+
+  .post__content :global(h2) {
+    font-size: 1.6rem;
+    margin-top: 1.8em;
+  }
+
+  .post__content :global(h3) {
+    font-size: 1.25rem;
+    margin-top: 1.5em;
+  }
+
+  .post__content :global(ul),
+  .post__content :global(ol) {
+    padding-left: 1.3em;
+    margin: 0 0 1em;
+  }
+
+  .post__content :global(li) {
+    margin-bottom: 0.4em;
+  }
+
+  .post__content :global(blockquote) {
+    margin: 1.5em 0;
+    padding: 16px 20px;
+    border-left: 4px solid var(--blue-600);
+    background: var(--blue-50);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .post__content :global(blockquote p:last-child) {
+    margin: 0;
+  }
+
+  .post__content :global(img) {
+    border-radius: var(--radius-sm);
+    margin: 1.5em 0;
+  }
+
+  .post__cta {
+    margin-top: 48px;
+    padding: 32px;
+    border-radius: var(--radius);
+    background: linear-gradient(150deg, var(--blue-800), var(--blue-900));
+    color: #fff;
+  }
+
+  .post__cta h2 {
+    margin-top: 0 !important;
+    font-size: 1.5rem;
+  }
+
+  .post__cta p {
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .related {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  @media (max-width: 1024px) {
+    .related {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .related {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

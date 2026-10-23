@@ -1,0 +1,234 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import logo from '../assets/brand/logo.png';
+import { site, services, trackingIds, whatsappLink } from '../data/site';
+
+const year = new Date().getFullYear();
+const hour = (t: string) => t.replace(':00', 'h').replace(/^0/, '');
+// Empresa de área de serviço: mostramos só a cidade e a região atendida, nunca o endereço.
+const nearby = site.areaServed.filter((c) => c !== site.city).join(', ');
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <div class="footer__logo">
+        <Image src={logo} alt="GS Vitaliza" height={56} densities={[1, 2]} />
+      </div>
+      <p>Higienização profissional de estofados a domicílio em {site.city} e região.</p>
+      <div class="footer__social">
+        <a href={whatsappLink()} target="_blank" rel="noopener" aria-label="WhatsApp"><Icon name="whatsapp" /></a>
+        <a href={site.instagram} target="_blank" rel="noopener" aria-label="Instagram"><Icon name="instagram" /></a>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="footer__title">Serviços</h2>
+      <ul>
+        {services.map((s) => <li><a href="/#servicos">{s.title}</a></li>)}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="footer__title">Navegação</h2>
+      <ul>
+        <li><a href="/#como-funciona">Como funciona</a></li>
+        <li><a href="/#resultados">Resultados</a></li>
+        <li><a href="/#avaliacoes">Avaliações</a></li>
+        <li><a href="/#sobre">Sobre</a></li>
+        <li><a href="/#duvidas">Perguntas frequentes</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="footer__title">Contato</h2>
+      <ul class="footer__contact">
+        <li><Icon name="phone" size={18} /><a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a></li>
+        <li><Icon name="mail" size={18} /><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><Icon name="instagram" size={18} /><a href={site.instagram} target="_blank" rel="noopener">{site.instagramHandle}</a></li>
+        <li>
+          <Icon name="pin" size={18} />
+          <span>
+            {site.city}/{site.region}
+            <span class="footer__line footer__muted">Atendemos também {nearby} e toda a Grande São Paulo</span>
+          </span>
+        </li>
+        <li>
+          <Icon name="clock" size={18} />
+          <span>
+            {site.openingHours.map((h) => (
+              <span class="footer__line">{h.short}: {hour(h.opens)} às {hour(h.closes)}</span>
+            ))}
+          </span>
+        </li>
+        <li><Icon name="card" size={18} /><span>{site.paymentMethods.join(', ')}</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <div>
+      <p>© {year} {site.name}. Todos os direitos reservados.</p>
+      <p class="footer__muted">{site.name} · CNPJ {site.cnpj}</p>
+    </div>
+    <div class="footer__links">
+      <a href="/privacidade/">Política de privacidade</a>
+      {trackingIds.length > 0 && <button type="button" data-cookie-prefs>Preferências de cookies</button>}
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--blue-900);
+    color: rgb(255 255 255 / 0.78);
+    padding-top: 64px;
+    font-size: 0.95rem;
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+    gap: 40px;
+  }
+
+  .footer__logo {
+    display: inline-block;
+    background: #fff;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    margin-bottom: 16px;
+  }
+
+  .footer__logo :global(img) {
+    height: 56px;
+    width: auto;
+  }
+
+  .footer__title {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 16px;
+  }
+
+  .footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .footer a {
+    color: rgb(255 255 255 / 0.78);
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    color: #fff;
+  }
+
+  .footer__contact li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .footer__contact :global(svg) {
+    margin-top: 3px;
+    flex-shrink: 0;
+    color: var(--blue-500);
+  }
+
+  .footer__line {
+    display: block;
+  }
+
+  .footer__muted {
+    margin-top: 2px;
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  .footer__social {
+    display: flex;
+    gap: 10px;
+  }
+
+  .footer__social a {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.1);
+  }
+
+  .footer__social a:hover {
+    background: rgb(255 255 255 / 0.2);
+  }
+
+  .footer__bottom {
+    margin-top: 48px;
+    padding-block: 24px;
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+    font-size: 0.85rem;
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+  }
+
+  .footer__bottom p {
+    margin: 0;
+  }
+
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 8px 20px;
+  }
+
+  .footer__links button {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: rgb(255 255 255 / 0.78);
+    font: inherit;
+    line-height: inherit;
+    cursor: pointer;
+  }
+
+  /* Abaixo de ~1100px os botões flutuantes chegam ao fim do rodapé: deixa espaço para não cobrirem os links. */
+  @media (max-width: 1100px) {
+    .footer__bottom {
+      padding-bottom: 96px;
+    }
+  }
+
+  .footer__links button:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 900px) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

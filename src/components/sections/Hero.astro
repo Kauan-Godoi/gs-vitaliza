@@ -1,0 +1,295 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import { site, whatsappLink } from '../../data/site';
+// Foto sem fundo, com as margens transparentes cortadas (o enquadramento é feito no CSS).
+import cal from '../../assets/brand/cal-recorte.png';
+
+const rating = site.google.rating.toFixed(1).replace('.', ',');
+
+const highlights = [
+  { title: 'Remoção completa', text: 'sujidades, ácaros, bactérias, fungos, alérgenos e maus odores' },
+  { title: 'Atendimento', text: 'sofás, colchões, tapetes, estofados automotivos e os mais diversos tipos de estofados' },
+  { title: 'Produtos certificados', text: 'seguros para os tecidos e para sua família' },
+  { title: 'Comodidade', text: 'toda a estrutura levada até você' },
+];
+---
+
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <a class="hero__rating" href={site.google.profileUrl} target="_blank" rel="noopener">
+        <Icon name="star" size={14} />
+        {rating} no Google ({site.google.reviewCount} avaliações)
+      </a>
+
+      <h1 class="hero__title">
+        Higienização profissional de estofados em <span>{site.city}</span> e região
+      </h1>
+      <ul class="hero__list">
+        {highlights.map((h) => (
+          <li>
+            <span class="hero__check"><Icon name="check" size={14} /></span>
+            <span><strong>{h.title}:</strong> {h.text}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="hero__actions">
+        <a class="btn btn--light" href={whatsappLink()} target="_blank" rel="noopener">
+          <Icon name="whatsapp" /> Solicitar orçamento gratuito
+        </a>
+        <a class="btn btn--ghost" href="#resultados">Antes e depois</a>
+      </div>
+
+      <ul class="hero__meta">
+        <li><Icon name="phone" size={16} /><a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a></li>
+        <li><Icon name="mail" size={16} /><a href={`mailto:${site.email}`}>{site.email}</a></li>
+      </ul>
+    </div>
+
+    <div class="hero__media">
+      <div class="hero__card">
+        <Image
+          class="hero__photo"
+          src={cal}
+          alt={`${site.owner.name}, fundador da GS Vitaliza, segurando o equipamento de higienização`}
+          widths={[cal.width]}
+          format="webp"
+          quality={90}
+          sizes="(max-width: 900px) 80vw, 420px"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="hero__tag">
+          <strong>{site.owner.name}</strong>
+          <span>Fundador da GS Vitaliza</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a class="hero__scroll" href="#servicos" aria-label="Ir para os serviços">
+    <Icon name="chevron-down" size={20} />
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    color: #fff;
+    background:
+      radial-gradient(ellipse 45% 60% at 78% 45%, rgb(26 99 214 / 0.35), transparent 70%),
+      radial-gradient(ellipse 40% 50% at 10% 0%, rgb(26 99 214 / 0.18), transparent 70%),
+      #050c1c;
+    /* O cabeçalho flutua sobre o hero (ver Header overlay). */
+    padding-block: calc(var(--header-h) + clamp(24px, 5vw, 56px)) clamp(72px, 9vw, 112px);
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+
+  .hero__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    margin-bottom: 22px;
+    border-radius: 999px;
+    border: 1px solid rgb(255 255 255 / 0.14);
+    background: rgb(255 255 255 / 0.06);
+    color: rgb(255 255 255 / 0.9);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .hero__rating :global(svg) {
+    color: var(--blue-500);
+  }
+
+  .hero__title {
+    font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+
+  .hero__title span {
+    color: var(--blue-500);
+  }
+
+  .hero__list {
+    display: grid;
+    gap: 12px;
+    max-width: 560px;
+    margin: 0 0 32px;
+    padding: 0;
+    list-style: none;
+    color: rgb(255 255 255 / 0.72);
+    font-size: clamp(1rem, 1.5vw, 1.08rem);
+  }
+
+  .hero__list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .hero__list strong {
+    color: #fff;
+  }
+
+  .hero__check {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    border-radius: 50%;
+    background: var(--blue-600);
+    color: #fff;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: rgb(255 255 255 / 0.72);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .hero__meta li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero__meta :global(svg) {
+    flex-shrink: 0;
+    color: var(--blue-500);
+  }
+
+  .hero__meta a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .hero__meta a:hover {
+    color: #fff;
+  }
+
+  .hero__media {
+    justify-self: center;
+    width: 100%;
+    max-width: 440px;
+  }
+
+  .hero__card {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 28px;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    box-shadow:
+      0 30px 80px -30px rgb(26 99 214 / 0.6),
+      inset 0 1px 0 rgb(255 255 255 / 0.08);
+    background:
+      radial-gradient(circle at 50% 38%, rgb(47 124 240 / 0.75), transparent 55%),
+      radial-gradient(ellipse 120% 60% at 50% 110%, rgb(13 58 140 / 0.9), transparent 70%),
+      linear-gradient(160deg, #0b1d44, #050c1c);
+  }
+
+  /* Anel de luz atrás do dono, como na referência */
+  .hero__card::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 34%;
+    width: 78%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgb(120 175 255 / 0.35);
+    box-shadow: 0 0 60px 10px rgb(47 124 240 / 0.35);
+  }
+
+  .hero__card :global(.hero__photo) {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: auto;
+    height: 90%;
+    max-width: none;
+    transform: translateX(-50%);
+    filter: drop-shadow(0 20px 40px rgb(0 0 0 / 0.45));
+  }
+
+  .hero__tag {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    display: grid;
+    padding: 10px 16px;
+    border-radius: 14px;
+    background: rgb(5 12 28 / 0.6);
+    border: 1px solid rgb(255 255 255 / 0.12);
+    backdrop-filter: blur(10px);
+    line-height: 1.3;
+  }
+
+  .hero__tag strong {
+    font-size: 1.05rem;
+  }
+
+  .hero__tag span {
+    color: rgb(255 255 255 / 0.7);
+    font-size: 0.8rem;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--blue-600);
+    color: #fff;
+    box-shadow: 0 8px 24px -6px rgb(26 99 214 / 0.7);
+    z-index: 2;
+  }
+
+  .hero__scroll:hover {
+    background: var(--blue-700);
+  }
+
+  @media (max-width: 900px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__media {
+      max-width: 360px;
+    }
+  }
+</style>

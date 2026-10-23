@@ -1,0 +1,57 @@
+---
+// Destino do formulário de contato. A visita a esta página conta como conversão "form" no Google Ads.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { whatsappLink } from '../data/site';
+---
+
+<BaseLayout title="Mensagem enviada" noindex>
+  <section class="section thanks">
+    <div class="container">
+      <span class="thanks__icon"><Icon name="check" size={32} /></span>
+      <h1 class="section-title">Mensagem enviada!</h1>
+      <p class="section-lead">
+        Recebemos seu contato e respondemos em breve. Se preferir agilizar, mande uma foto do estofado pelo WhatsApp.
+      </p>
+      <div class="thanks__actions">
+        <a class="btn btn--whatsapp" href={whatsappLink()} target="_blank" rel="noopener">
+          <Icon name="whatsapp" /> Chamar no WhatsApp
+        </a>
+        <a class="btn btn--outline" href="/">Voltar para o início</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  window.gsTrack?.('form');
+</script>
+
+<style>
+  .thanks {
+    text-align: center;
+  }
+
+  .thanks__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    background: var(--blue-100);
+    color: var(--blue-600);
+  }
+
+  .thanks .section-lead {
+    margin-inline: auto;
+  }
+
+  .thanks__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+  }
+</style>
