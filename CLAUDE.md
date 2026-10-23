@@ -41,6 +41,7 @@ npm run reviews    # busca avaliações do Google (só funciona com as credencia
 | `scripts/fetch-reviews.mjs` | Busca **todas** as avaliações pela API do Perfil da Empresa no Google e grava em `reviews.json` |
 | `.github/workflows/deploy.yml` | Build + deploy no GitHub Pages; roda a cada push na `main` e diariamente às 09:00 UTC (para atualizar as avaliações) |
 | `public/CNAME` | `gsvitaliza.com.br` |
+| `public/` (ícones) | Favicon pronto, entregue pelo usuário (`favicon.svg`, `favicon.ico` 16/32/48, `favicon-48x48.png`, `favicon-96x96.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon-512-maskable.png`) e `site.webmanifest`. Tags no `<head>` do `BaseLayout.astro`; `theme-color` `#123a8f` |
 
 ## Convenções e armadilhas
 
