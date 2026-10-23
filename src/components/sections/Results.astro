@@ -42,7 +42,7 @@ const pairs = beforeAfter.map((p) => ({ ...p, before: photo(p.before), after: ph
     <div class="pairs">
       {pairs.map((p) => (
         <figure class="pair reveal">
-          <BeforeAfter before={p.before} after={p.after} stacked={p.stacked} alt={p.title.toLowerCase()} />
+          <BeforeAfter before={p.before} after={p.after} stacked={p.stacked} alt={p.title.toLowerCase()} ratio="3 / 4" />
           <figcaption>
             <strong>{p.title}</strong>
             <span>{p.description}</span>
@@ -113,14 +113,19 @@ const pairs = beforeAfter.map((p) => ({ ...p, before: photo(p.before), after: ph
 </script>
 
 <style>
+  /* Flex em vez de grid para centralizar a última linha quando ela não fecha. */
   .pairs {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
+    --cols: 3;
+    --gap: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap);
     margin-bottom: clamp(48px, 6vw, 72px);
   }
 
   .pair {
+    flex: 0 1 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));
     margin: 0;
   }
 
@@ -264,10 +269,19 @@ const pairs = beforeAfter.map((p) => ({ ...p, before: photo(p.before), after: ph
     right: -22px;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1100px) {
     .pairs {
-      grid-template-columns: 1fr;
+      --cols: 2;
     }
+  }
+
+  @media (max-width: 560px) {
+    .pairs {
+      --cols: 1;
+    }
+  }
+
+  @media (max-width: 900px) {
 
     .gallery {
       grid-template-columns: repeat(2, 1fr);

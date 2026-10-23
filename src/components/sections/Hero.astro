@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Icon from '../Icon.astro';
 import { site, whatsappLink } from '../../data/site';
-// Foto recortada (fundo transparente). Ao receber a versão em alta, substitua este arquivo.
+// Foto sem fundo, com as margens transparentes cortadas (o enquadramento é feito no CSS).
 import cal from '../../assets/brand/cal-recorte.png';
 
 const rating = site.google.rating.toFixed(1).replace('.', ',');
@@ -43,8 +43,9 @@ const rating = site.google.rating.toFixed(1).replace('.', ',');
           class="hero__photo"
           src={cal}
           alt={`${site.owner.name}, fundador da GS Vitaliza, segurando o equipamento de higienização`}
-          widths={[375]}
+          widths={[cal.width]}
           format="webp"
+          quality={90}
           sizes="(max-width: 900px) 80vw, 420px"
           loading="eager"
           fetchpriority="high"
@@ -186,8 +187,9 @@ const rating = site.google.rating.toFixed(1).replace('.', ',');
     position: absolute;
     left: 50%;
     bottom: 0;
-    width: 90%;
-    height: auto;
+    width: auto;
+    height: 90%;
+    max-width: none;
     transform: translateX(-50%);
     filter: drop-shadow(0 20px 40px rgb(0 0 0 / 0.45));
   }
