@@ -47,15 +47,15 @@ export const site = {
 // Preencha quando as contas estiverem criadas (ver "Google Ads" no CLAUDE.md).
 export const tracking = {
   /** ID da métrica do Google Analytics 4 (ex.: 'G-XXXXXXXXXX'). */
-  ga4Id: '',
+  ga4Id: 'G-2TEQ6JB86T',
   /** ID da conta do Google Ads (ex.: 'AW-123456789'). */
-  googleAdsId: '',
+  googleAdsId: 'AW-18241594151',
   /** Rótulos das ações de conversão do Google Ads: a parte depois da barra em 'AW-123456789/AbC-dEfG'. */
   conversions: {
-    whatsapp: '',
-    phone: '',
-    email: '',
-    form: '',
+    whatsapp: '4ittCP_Sm6cdEKfGovpD',
+    phone: 'JoobCILTm6cdEKfGovpD',
+    email: 'RiyDCI6Vo6cdEKfGovpD',
+    form: 'P-QTCPzSm6cdEKfGovpD',
   },
 };
 
