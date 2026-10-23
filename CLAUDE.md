@@ -37,7 +37,7 @@ npm run reviews    # busca avaliações do Google (só funciona com as credencia
 | `src/content/blog/*.md` | Artigos do blog (schema em `src/content.config.ts`: title, description, date, cover, coverAlt, draft) |
 | `src/pages/` | `index.astro` (com dados estruturados de FAQ), `blog/index.astro`, `blog/[id].astro`, `404.astro`, `obrigado.astro` (destino do formulário, `noindex`, fora do sitemap), `privacidade.astro` (política LGPD) |
 | `src/assets/brand/` | `logo.png` (logo recortada), `cal-recorte.png` (foto do Cal sem fundo, 1180×1656, margens transparentes cortadas; enquadrada no CSS do Hero com `height: 90%`), `hero.jpeg` |
-| `src/assets/portfolio/` | Fotos da galeria e dos cards de serviço (`07.jpg`, a cadeirinha rasgada, não é usada de propósito) |
+| `src/assets/portfolio/` | Fotos da galeria e dos cards de serviço (`07.jpg`, a cadeirinha rasgada, não é usada de propósito). Card sem foto no objeto `media` de `Services.astro` mostra o ícone grande sobre fundo azul; serviço com `quote` em `site.ts` muda o texto da mensagem do WhatsApp |
 | `scripts/fetch-reviews.mjs` | Busca **todas** as avaliações pela API do Perfil da Empresa no Google e grava em `reviews.json` |
 | `.github/workflows/deploy.yml` | Build + deploy no GitHub Pages; roda a cada push na `main` e diariamente às 09:00 UTC (para atualizar as avaliações) |
 | `public/CNAME` | `gsvitaliza.com.br` |
@@ -75,7 +75,7 @@ npm run reviews    # busca avaliações do Google (só funciona com as credencia
 
 1. História do Cal para a seção Sobre. Hoje há um texto genérico provisório (sem anos de experiência, cursos ou números) e um `TODO` em `About.astro`.
 2. Tempo médio de secagem. A pergunta foi **removida** do FAQ (site e dados estruturados) até haver resposta confirmada; `TODO` em `site.ts`.
-3. Confirmar a lista de serviços e se há extras (impermeabilização, cortinas, cabeceiras, empresas).
+3. ✅ Resolvido (23/10/2026): serviços confirmados pelo Cal: sofá, colchões, cabeceiras, bancos automotivos, poltronas e cadeiras, tapetes, carpetes, itens infantis e impermeabilização de estofados. Faltam fotos reais de **cabeceira** e de **carpete** (os cards mostram o ícone sobre fundo azul); a impermeabilização usa a foto `10.jpg` (sofá claro), que é ilustrativa.
 4. Diferenciais concretos (garantia, produtos, cursos) e outras perguntas frequentes.
 5. Link "Pedir avaliações" do painel do Perfil da Empresa (`site.google.reviewUrl`; hoje aponta para o perfil).
 6. ✅ Resolvido (23/10/2026): o endereço fica oculto no site.
