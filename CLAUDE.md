@@ -6,8 +6,9 @@ Todo o conteúdo do site e a comunicação com o usuário são em **português d
 
 ## Estado atual (out/2026)
 
-- **O site novo (Astro) está publicado** em https://gsvitaliza.com.br desde 23/10/2026: a `redesign` foi mesclada na `main` por PR, a pedido do usuário, antes da API de avaliações.
-- O GitHub Pages publica pelo workflow `.github/workflows/deploy.yml` (Source = GitHub Actions). **Todo push na `main` vai para o ar.** Trabalhe na `redesign` (ou outra branch) e só mescle na `main` quando o usuário pedir.
+- **O site novo (Astro) está publicado** em https://gsvitaliza.com.br desde 23/10/2026 (merge do PR #1, `redesign` → `main`), antes da API de avaliações.
+- O GitHub Pages publica pelo workflow `.github/workflows/deploy.yml` (Source = GitHub Actions). **Todo push na `main` vai direto para o ar.** Trabalhe sempre em uma branch (`redesign` ou outra) e só mescle na `main` quando o usuário aprovar.
+- O repositório é clonado do GitHub numa pasta fora do OneDrive (a cópia antiga no OneDrive foi abandonada). Depois de clonar: `npm install`.
 - O site antigo (template Bootstrap) está guardado na tag **`site-antigo`**. Para voltar atrás em emergência: reverter o merge na `main` (`git revert -m 1 <merge>`) ou publicar a partir da tag.
 - O site antigo só tinha `/index.html`, que continua existindo no site novo; não foi preciso criar redirecionamentos.
 
@@ -79,16 +80,29 @@ npm run reviews    # busca avaliações do Google (só funciona com as credencia
 6. ✅ Resolvido (23/10/2026): o endereço fica oculto no site.
 7. Atualizar o horário no Perfil do Google para ficar igual ao do site.
 8. Temas para o blog.
-9. Credenciais da API de avaliações: o Kauan está cadastrando direto nos Secrets do GitHub (ver abaixo).
+9. Aprovação da API de avaliações pelo Google (ver abaixo).
 10. Depois da aprovação da API do Google, configurar o Perfil da Empresa como área de serviço e ocultar o endereço.
+
+## Próximos passos (do lado do Kauan)
+
+**Prioridade agora:**
+1. **Google Ads:** criar as ações de conversão e preencher `tracking` em `src/data/site.ts` (ver "Google Ads" abaixo).
+2. **Google Search Console:** verificar o domínio. Se for pela tag HTML, adicionar a `<meta name="google-site-verification">` no `BaseLayout.astro` (o código vem do Search Console); depois enviar `https://gsvitaliza.com.br/sitemap-index.xml`.
+
+**Pendências técnicas:**
+- Marcar **Enforce HTTPS** em Settings → Pages (estava desligado em 23/10/2026).
+- Testar um envio real do formulário (chegada no e-mail pelo Formspree e redirecionamento para `/obrigado/`).
+- Após a aprovação da API: ocultar o endereço no Perfil da Empresa no Google (área de serviço).
 
 ## API de avaliações do Google
 
 - **Gratuita**, mas exige aprovação: perfil verificado há mais de 60 dias e formulário "Business Profile API access request" com o número do projeto no Google Cloud.
 - Passo a passo combinado: o Cal adiciona o Kauan como Gerente do perfil → projeto no Google Cloud → pedido de acesso → ativar *Google My Business API* (v4, reviews), *My Business Account Management API* e *My Business Business Information API* → OAuth (tela de consentimento Externo, **publicada "Em produção"**, senão o refresh token expira em 7 dias) → refresh token via OAuth Playground com o escopo `https://www.googleapis.com/auth/business.manage` → descobrir o ID da conta e o ID do local.
-- Secrets no GitHub: `GBP_CLIENT_ID`, `GBP_CLIENT_SECRET`, `GBP_REFRESH_TOKEN`, `GBP_ACCOUNT_ID`, `GBP_LOCATION_ID`. Sem eles, o script não faz nada (sai com código 0).
+- **Status (23/10/2026):** pedido de acesso enviado ao Google em 23/10/2026, registro **6-9945000041834**, prazo de 7 a 10 dias úteis. Tela de consentimento OAuth já está **"Em produção"**.
+- Secrets no GitHub: `GBP_CLIENT_ID`, `GBP_CLIENT_SECRET` e `GBP_REFRESH_TOKEN` **já cadastrados**. Faltam `GBP_ACCOUNT_ID` e `GBP_LOCATION_ID`, que só dá para descobrir depois da aprovação. Sem os cinco, o script não faz nada (sai com código 0).
+- **Nunca pedir nem receber as chaves no chat.** O Kauan cadastra direto nos Secrets; o teste é rodando o workflow (Actions → Deploy → Run workflow).
+- Depois de ativa, a API também pode atualizar `site.google.rating` e `reviewCount` (hoje fixos no `site.ts`); o script ainda não faz isso.
 - O script ignora avaliações sem texto (só estrelas).
-- As chaves **não** passam pelo chat nem ficam em arquivo: só nos Secrets. O teste será rodando o workflow no GitHub.
 
 ## Google Ads
 
@@ -112,4 +126,4 @@ O site novo existe para receber tráfego de anúncios do Google Ads depois da pu
 ## Git
 
 - Commits terminam com `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
-- Só fazer commit ou push quando o usuário pedir.
+- Só fazer commit ou push quando o usuário pedir. Push na `main` publica o site.
